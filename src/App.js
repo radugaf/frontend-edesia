@@ -12,9 +12,9 @@ import {
   WishList,
   Cart,
   IstoricComenzi,
+  Invoices,
+  InvoiceCreate
 } from "./AppImports";
-
-import PrivateRoute from "./components/PrivateRoute";
 
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -49,6 +49,8 @@ const App = () => {
           <Route path="/orders" exact component={Orders} />
           <Route path="/login" exact component={Login} />
           <Route path="/forgot-password" exact component={ForgotPassword} />
+          <Route path="/invoices" exact component={Invoices} />\
+          <Route path='/invoice-create' exact component={InvoiceCreate} />
         </BrowserRouter>
       </Provider>
     </>

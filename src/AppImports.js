@@ -7,3 +7,5 @@ export { default as Orders } from "./containers/Supplier/Orders";
 export { default as WishList } from "./containers/Restaurant/WishList";
 export { default as Cart } from "./containers/Restaurant/Cart";
 export { default as IstoricComenzi } from "./containers/Restaurant/IstoricComenzi";
+export { default as Invoices } from './containers/Invoices';
+export { default as InvoiceCreate } from './containers/InvoiceCreate';
