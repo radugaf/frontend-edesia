@@ -1,4 +1,4 @@
-export const URL = "http://18.156.171.151";
+export const URL = "https://edesia-development.com";
 export const BACKEND_URL = `${URL}/api/v1/`;
 
 export default {
