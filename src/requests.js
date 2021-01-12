@@ -25,13 +25,13 @@ export default {
 
   MARK_AS_DELIVERY_SUPPLIER_ORDER: "mark-orders-as-delivered/",
   GET_SUPPLIER_ORDERS: "supplier-pending-product-list/",
-  RESURANT_SHIPPED_PEODUCT_LIST: "restaurant-shipped-product-list/",
+  RESURANT_SHIPPED_PEODUCT_LIST:"restaurant-shipped-product-list/"
 };
 
 export const TOKEN =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjEyNjQwNzQzLCJqdGkiOiIyMzNjYzExMTQyOTY0MWZmYmNkMGExMWQ4YWU4ODI4MSIsInVzZXJfaWQiOjR9.IHx5OirlN7MMQiXlK_I6u71xrIvD1rOQEwfau_TX_8";
 
-// export const CREDENTIALS = {
-//   username: "rest1",
-//   password: "Shreeji@1",
-// };
+export const CREDENTIALS = {
+  username: "rest1",
+  password: "Shreeji@1",
+};
