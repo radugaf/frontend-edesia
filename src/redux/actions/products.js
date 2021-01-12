@@ -1,7 +1,6 @@
 import axios from "axios";
 import { toastr } from "react-redux-toastr";
-import requests, { BACKEND_URL, TOKEN } from "../../requests";
-import { useHistory } from "react-router-dom";
+import requests, { BACKEND_URL } from "../../requests";
 
 /** Product Start */
 // Product Fetch Restaurant
@@ -56,6 +55,36 @@ export const SupplierProductFetch = () => {
         type: "STOP_LOADING",
       });
       dispatch({ type: "GET_PRODUCTS", payload: productData.data.data });
+    } catch (error) {
+      console.log({ error });
+
+      errorHandle(error, dispatch);
+    }
+  };
+};
+
+// Supplier
+export const InvoiceFetch = () => {
+  return async (dispatch, getState) => {
+    // Loading
+    dispatch({
+      type: "INVOICE_LOADING",
+      payload: true,
+    });
+    //   Get Token from state
+
+    try {
+      const invoiceData = await axios.get(
+        `${BACKEND_URL}${requests.SUPPLIER_PRODUCT_LIST}`,
+        tokenConfig(getState)
+      );
+      console.log({ invoiceData });
+      await checkUserType(dispatch, getState);
+
+      dispatch({
+        type: "STOP_LOADING",
+      });
+      dispatch({ type: "GET_INVOICES", payload: invoiceData.data.data });
     } catch (error) {
       console.log({ error });
 
@@ -397,7 +426,6 @@ export const GetRestaurantOrder = () => {
   };
 };
 
-
 // Mark as Delivery
 export const MarkAsDelivery = (data) => {
   return async (dispatch, getState) => {
@@ -433,8 +461,7 @@ export const MarkAsDelivery = (data) => {
   };
 };
 
-
-// Mark Order as Shipped Supplier 
+// Mark Order as Shipped Supplier
 export const MarkAsShipped = (data) => {
   return async (dispatch, getState) => {
     // Loading
@@ -467,7 +494,6 @@ export const MarkAsShipped = (data) => {
     }
   };
 };
-
 
 // Place Order
 export const PlaceOrder = (data) => {
