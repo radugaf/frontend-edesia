@@ -72,7 +72,7 @@ const MatTable = ({
   inquires,
 }) => {
   let data = carts && carts.not_instant_delivery_items || []
-  data = data.filter((cd)=>cd.custom_status ==='PENDING')
+  data = data.filter((cd)=>cd.custom_status ==='CUSTOM' || cd.custom_status ==="CUSTOM_UPDATED")
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
   const [selected, setSelected] = useState(new Map([]));

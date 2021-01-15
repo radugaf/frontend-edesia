@@ -16,7 +16,9 @@ class SidebarContent extends Component {
   };
 
   render() {
-    const { changeToDark, changeToLight } = this.props;
+    const { changeToDark, changeToLight,user } = this.props;
+    const userType = user;
+
     return (
       <div className="sidebar__content">
         <ul className="sidebar__block">
@@ -33,12 +35,20 @@ class SidebarContent extends Component {
         <ul className="sidebar__block">
           <SidebarCategory title="Example Pages" icon="diamond">
             <SidebarLink title="Products" route="/pages/products" onClick={this.hideSidebar} />
+          {userType && (userType.is_company_owner || userType.is_company_staff) && (
+            <>
             <SidebarLink title="Inquiries" route="/pages/inquiries" onClick={this.hideSidebar} />
+            <SidebarLink title="Orders" route="/pages/orders" onClick={this.hideSidebar} />
+            </>
+          )}
+            {userType && (userType.is_restaurant_owner || userType.is_restaurant_staff) && (
+              <>
             <SidebarLink title="Cart" route="/pages/cart" onClick={this.hideSidebar} />
             <SidebarLink title="Wishlist" route="/pages/wishlist" onClick={this.hideSidebar} />
-            <SidebarLink title="Dashboard" route="/pages/dashboard" onClick={this.hideSidebar} />
-            <SidebarLink title="Orders" route="/pages/orders" onClick={this.hideSidebar} />
             <SidebarLink title="Order Hsitory" route="/pages/order-history" onClick={this.hideSidebar} />
+            </>
+            )}
+            <SidebarLink title="Dashboard" route="/pages/dashboard" onClick={this.hideSidebar} />
           </SidebarCategory>
         </ul>
       </div>

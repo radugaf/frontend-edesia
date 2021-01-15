@@ -7,6 +7,7 @@ import { SidebarProps } from '../../../shared/prop-types/ReducerProps';
 
 const Sidebar = ({
   changeToDark, changeToLight, changeMobileSidebarVisibility, sidebar,
+  user
 }) => {
   const sidebarClass = classNames({
     sidebar: true,
@@ -20,6 +21,7 @@ const Sidebar = ({
       <Scrollbar className="sidebar__scroll scroll">
         <div className="sidebar__wrapper sidebar__wrapper--desktop">
           <SidebarContent
+            user={user}
             onClick={() => {}}
             changeToDark={changeToDark}
             changeToLight={changeToLight}
@@ -27,6 +29,7 @@ const Sidebar = ({
         </div>
         <div className="sidebar__wrapper sidebar__wrapper--mobile">
           <SidebarContent
+            user={user}
             onClick={changeMobileSidebarVisibility}
             changeToDark={changeToDark}
             changeToLight={changeToLight}

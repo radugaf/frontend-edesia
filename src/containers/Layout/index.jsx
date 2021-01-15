@@ -37,7 +37,7 @@ class Layout extends Component {
   };
 
   render() {
-    const { sidebar } = this.props;
+    const { sidebar,user } = this.props;
 
     const layoutClass = classNames({
       layout: true,
@@ -47,10 +47,12 @@ class Layout extends Component {
     return (
       <div className={layoutClass}>
         <Topbar
+          user={user}
           changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
           changeSidebarVisibility={this.changeSidebarVisibility}
         />
         <Sidebar
+          user={user}
           sidebar={sidebar}
           changeToDark={this.changeToDark}
           changeToLight={this.changeToLight}
@@ -63,4 +65,5 @@ class Layout extends Component {
 
 export default withRouter(connect(state => ({
   sidebar: state.sidebar,
+  user: state.products.user,
 }))(Layout));

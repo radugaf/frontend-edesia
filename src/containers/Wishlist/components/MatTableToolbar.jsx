@@ -13,12 +13,12 @@ import {AddInquiry,
   
   import MatTableFilterButton from './MatTableFilterButton';
 
-const MatTableToolbar = ({AddInquiry,GetAddToCart, numSelected, handleDeleteSelected, onRequestSort,selectedData }) => {
-  const onFormSubmit = (e) => {
+const MatTableToolbar =  ({AddInquiry,GetAddToCart, numSelected, handleDeleteSelected, onRequestSort,selectedData }) => {
+  const onFormSubmit = async (e) => {
     e.preventDefault();
-    AddInquiry({ product_id: selectedData });
+    await AddInquiry({ product_id: selectedData });
     toastr.success("Add Product in Inquiries", "Product added successfully");
-    GetAddToCart();
+    await GetAddToCart();
     window.location.href="/pages/wishlist"
   }
 
