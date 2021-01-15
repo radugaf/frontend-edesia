@@ -25,6 +25,9 @@ const rows = [
     id: 'cota_tva', disablePadding: false, label: 'Cota TVA%',
   },
   {
+    id: 'product_quantity', disablePadding: false, label: 'Cantitate',
+  },
+  {
     id: 'desired_qty', disablePadding: false, label: 'Cantitate Dorita',
   },
   {

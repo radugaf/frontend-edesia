@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { Card, CardBody, Col } from "reactstrap";
-
+import { connect } from "react-redux";
+import { toastr } from "react-redux-toastr";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,21 +11,28 @@ import TablePagination from "@material-ui/core/TablePagination";
 
 import MatTableHead from "./MatTableHead";
 import MatTableToolbar from "./MatTableToolbar";
-
-import { GetInquires } from "../../../redux/actions/products";
-import { connect } from "react-redux";
+import {  
+  GetRestaurantOrder,
+  MarkAsDelivery,
+  MarkAsShipped,
+ } from "../../../redux/actions/products";
+import { URL } from "../../../requests";
 
 let counter = 0;
 
-const createData = (name, calories, fat, carbs, protein) => {
+const createData = (name, desired_qty, available_qty, price, um, cota_tva, supplier) => {
   counter += 1;
   return {
     id: counter,
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    desired_qty,
+    available_qty,
+    price,
+    um,
+    cota_tva,
+    supplier,
+
+    
   };
 };
 
@@ -51,13 +59,54 @@ const getSorting = (order, orderBy) => {
   };
 };
 
-const MatTable = ({ inquires, GetInquires, data }) => {
+const MatTable = ({
+  carts,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+  user,
+  GetInquires,
+  inquires,
+  data
+}) => {
   const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("calories");
+  const [orderBy, setOrderBy] = useState("price");
   const [selected, setSelected] = useState(new Map([]));
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [currentQty, setCurrentQty] = React.useState(new Map([]));
+  // const [data, setData] = useState([
+  //   createData("Cupcake", "Kaufland", 3.7, "kg", "9%", 50, 1350),
+  //   createData("Donut", "Lidl", 25.0, "g", "9%", 60, 1350),
+  //   createData("Eclair", "Metro", 16.0, "L", "19%", 120, 1350),
+  //   createData("Frozen yoghurt", "Kaufland", 6.0, "ml", "9%", 35, 1350),
+  //   createData("Gingerbread", "Kaufland", 16.0, "kg", "19%", 40, 1350),
+  //   createData("Honeycomb", "Metro", 3.2, "g", "19%", 75, 1350),
+  //   createData("Ice cream sandwich", "Metro", 37, "L", "9%", 89, 1350),
+  //   createData("Jelly Bean", "Lidl", 10.0, "ml", "19%", 100, 1350), 
+  //   createData("KitKat", "Metro", 26.0, "kg", "19%", 29, 1350),
+  //   createData("Lollipop", "Kaufland", 0.2, "g", "9%", 58, 1350),
+  //   createData("Marshmallow", 318, 0, "L", "19%", 10, 1350),
+  //   createData("Nougat", "Metro", 19.0, "kg", "9%", 3, 1350),
+  //   createData("Oreo", "Lidl", 18.0, "g", "9%", 560, 1350),
+  // ]);
+
+
+  const UpdateQty = async (e, product_item_id, price) => {
+    console.log({ value: e.target.value });
+    if (+e.target.value >= 1) {
+      await UpdateCart({
+        product_id: product_item_id,
+        quantity: +e.target.value,
+        price,
+      });
+      GetAddToCart();
+      // window.location.href = "/wishlist";
+      toastr.success("WishList Qty Update", "Cantitate dorita updated");
+    } else {
+      toastr.error("Cantitate dorita not less than 1");
+    }
+  };
 
   const handleRequestSort = (event, property) => {
     const orderByTemp = property;
@@ -67,25 +116,6 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     }
     setOrder(orderTemp);
     setOrderBy(orderByTemp);
-  };
-
-  useEffect(() => {
-    GetInquires();
-  }, []);
-
-  const onChangeValueUpdate = (e, currentinq, index) => {
-    const inquiry = currentinq[index];
-    console.log({ inquiry, index });
-    const updatedQty = +e.target.value;
-    const newcurrentQty = new Map(currentQty);
-    const value = newcurrentQty.get(inquiry.product_item_id);
-    let qty = updatedQty;
-    newcurrentQty.set(inquiry.product_item_id, {
-      ...inquiry,
-      updateQty: updatedQty,
-    });
-    console.log({ newcurrentQty });
-    setCurrentQty(newcurrentQty);
   };
 
   const handleSelectAllClick = (event, checked) => {
@@ -98,7 +128,6 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     setSelected(new Map([]));
   };
 
-  // HandleSingle chekcbox click
   const handleClick = (event, id) => {
     const newSelected = new Map(selected);
     const value = newSelected.get(id);
@@ -118,14 +147,14 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     setRowsPerPage(Number(event.target.value));
   };
 
-  // const handleDeleteSelected = () => {
-  //   let copyData = [...data];
-  //   for (let i = 0; i < [...selected].filter(el => el[1]).length; i += 1) {
-  //     copyData = copyData.filter(obj => obj.id !== selected[i]);
-  //   }
-  //   setData(copyData);
-  //   setSelected(new Map([]));
-  // };
+  const handleDeleteSelected = () => {
+    let copyData = [...data];
+    for (let i = 0; i < [...selected].filter((el) => el[1]).length; i += 1) {
+      copyData = copyData.filter((obj) => obj.id !== selected[i]);
+    }
+    // setData(copyData);
+    setSelected(new Map([]));
+  };
 
   const isSelected = (id) => !!selected.get(id);
   const emptyRows =
@@ -135,11 +164,13 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
+          <div className="card__title">
+            <h5 className="bold-text">Wishlist</h5>
+          </div>
           <MatTableToolbar
-            selectedData={currentQty}
-            checkedData={[...selected].filter((el) => el[1])}
+            selectedData={[...selected].filter((el) => el[1]).map((el)=>el[0])}
             numSelected={[...selected].filter((el) => el[1]).length}
-            handleDeleteSelected={(e) => console.log(e)}
+            handleDeleteSelected={handleDeleteSelected}
             onRequestSort={handleRequestSort}
           />
           <div className="material-table__wrap">
@@ -156,15 +187,13 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                 {data
                   .sort(getSorting(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((d, index) => {
+                  .map((d) => {
                     const select = isSelected(d.product_item_id);
                     return (
                       <TableRow
                         className="material-table__row"
                         role="checkbox"
-                        onClick={(event) =>
-                          handleClick(event, d.product_item_id)
-                        }
+                        onClick={(event) => handleClick(event, d.product_item_id)}
                         aria-checked={select}
                         tabIndex={-1}
                         key={d.product_item_id}
@@ -185,21 +214,17 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           scope="row"
                           padding="none"
                         >
-                          {d.product_item_id}
+                          {d.product_title}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.calories}
+                        {d.product_price}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.fat}
+                          {d.product_quantity}
                         </TableCell>
+                        
                         <TableCell className="material-table__cell material-table__cell-right">
-                          <input
-                            onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                          />
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {d.original_price}
+                          QTY Inpput * Price
                         </TableCell>
                       </TableRow>
                     );
@@ -235,15 +260,16 @@ const MatTable = ({ inquires, GetInquires, data }) => {
   );
 };
 
+
 const mapStateToProps = (state) => {
   return {
     inquires: state.products.inquiredDetails,
+    carts: state.products.cartsDetails,
     user: state.products.user,
   };
 };
-
 export default connect(mapStateToProps, {
-  GetInquires,
-  // DeclineInquiry,
-  // UpdateInquiry,
+  GetRestaurantOrder,
+  MarkAsDelivery,
+  MarkAsShipped,
 })(MatTable);

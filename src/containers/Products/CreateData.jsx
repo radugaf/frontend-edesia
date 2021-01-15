@@ -78,6 +78,14 @@ const CreateTableData = () => {
         width: 65,
       },
       {
+        Header: "Image",
+        accessor: "product_image",
+        disableGlobalFilter: true,
+        disableSortBy: true,
+        width: 65,
+
+      },
+      {
         Header: "Produs",
         accessor: "title",
       },

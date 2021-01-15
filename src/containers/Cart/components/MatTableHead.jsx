@@ -10,6 +10,9 @@ import { RTLProps } from '../../../shared/prop-types/ReducerProps';
 
 const rows = [
   {
+    id: 'image', disablePadding: true, label: 'Image',
+  },
+  {
     id: 'name', disablePadding: true, label: 'Produs',
   },
   {
@@ -23,6 +26,9 @@ const rows = [
   },
   {
     id: 'cota_tva', disablePadding: false, label: 'Cota TVA%',
+  },
+  {
+    id: 'product_quantity', disablePadding: false, label: 'Cantitate',
   },
   {
     id: 'desired_qty', disablePadding: false, label: 'Cantitate',

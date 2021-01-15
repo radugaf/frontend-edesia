@@ -188,10 +188,10 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           {d.product_item_id}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.calories}
+                          {d.original_price}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.fat}
+                          {d.quantity_by_restaurant}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           <input

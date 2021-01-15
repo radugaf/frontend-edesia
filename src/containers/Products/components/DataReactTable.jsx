@@ -144,6 +144,8 @@ const newProducts = products && products.map((product)=>{
     buttonName="Wishlist"
   }
   product['button']=<div class={className} onClick={(e) => {onSubmit(e,product.id,buttonName)}}>Adauga in {buttonName}</div>
+  product['product_image']=<img src={`${URL}${product.image_main}`}></img>
+ 
   return product
 })
   return (

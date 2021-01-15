@@ -38,8 +38,7 @@ const MatTableToolbar = ({GetAddToCart,PlaceOrder, numSelected, handleDeleteSele
         <Button onClick={AddToOrder} variant="contained" color="primary">
           Order Now
         </Button>
-        
-        
+
         ) : (
           <MatTableFilterButton onRequestSort={onRequestSort} />
         )}

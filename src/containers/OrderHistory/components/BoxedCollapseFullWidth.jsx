@@ -7,38 +7,49 @@ import MinimalCollapse from './MinimalCollapse'
 // Edesia
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { GetInquires } from "../../../redux/actions/products";
+import { toastr } from "react-redux-toastr";
 
-const BoxedCollapseFullWidth = ({ inquires, GetInquires }) => {
+import { GetRestaurantOrder,MarkAsDelivery, MarkAsShipped } from "../../../redux/actions/products";
+import { URL, CREDENTIALS } from "../../../requests";
+
+const BoxedCollapseFullWidth = ({ GetRestaurantOrder,MarkAsDelivery, MarkAsShipped, orders, user }) => {
   const { t } = useTranslation("common");
-  // console.log({ inquires });
-  // useEffect(() => {
-  //   GetInquires();
-  // }, []);
-
+  
+  const userType = user;
+  useEffect(() => {
+    GetRestaurantOrder();
+  }, []);
   return (
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">{t('Orders History')}</h5>
-            
           </div>
-          <Collapse title="{Supplier}" className="with-shadow">
-            <MinimalCollapse />
-          </Collapse>
+          {Object.keys(orders) && Object.keys(orders).map((key) => (
+              <Collapse title={key} className="with-shadow">
+                  <MinimalCollapse keys={key} data={orders} />
+              </Collapse>
+            ))
+          }
+
         </CardBody>
       </Card>
     </Col>
   );
 };
-
-const mapStateToProps = (state) => {
-  console.log({state})
-   return {
-     inquires: state.products.inquiredDetails,
-     user: state.products.user,
-   };
- };
  
- export default BoxedCollapseFullWidth
+ 
+const mapStateToProps = (state) => {
+  return {
+    carts: state.products.cartsDetails,
+    orders: state.products.restaurantOrdersDetails,
+    user: state.products.user,
+  };
+};
+export default connect(mapStateToProps, {
+  GetRestaurantOrder,
+  MarkAsShipped,
+})(BoxedCollapseFullWidth);
+
+

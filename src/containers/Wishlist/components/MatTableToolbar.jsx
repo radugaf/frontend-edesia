@@ -2,9 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import MatTableFilterButton from './MatTableFilterButton';
+import { toastr } from "react-redux-toastr";
+import { connect } from "react-redux";
+import {AddInquiry, 
+  GetInquires,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder } from "../../../redux/actions/products";
+  
+  import MatTableFilterButton from './MatTableFilterButton';
 
-const MatTableToolbar = ({ numSelected, handleDeleteSelected, onRequestSort }) => (
+const MatTableToolbar = ({AddInquiry,GetAddToCart, numSelected, handleDeleteSelected, onRequestSort,selectedData }) => {
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    AddInquiry({ product_id: selectedData });
+    toastr.success("Add Product in Inquiries", "Product added successfully");
+    GetAddToCart();
+    window.location.href="/pages/wishlist"
+  }
+
+return(
   <div className="material-table__toolbar-wrap">
     <Toolbar className="material-table__toolbar">
       <div>
@@ -15,7 +33,7 @@ const MatTableToolbar = ({ numSelected, handleDeleteSelected, onRequestSort }) =
       <div>
         {numSelected > 0 ? (
           
-        <Button variant="contained" color="primary">
+        <Button onClick={onFormSubmit} variant="contained" color="primary">
           Order Now
         </Button>
         
@@ -26,7 +44,7 @@ const MatTableToolbar = ({ numSelected, handleDeleteSelected, onRequestSort }) =
       </div>
     </Toolbar>
   </div>
-);
+)};
 
 MatTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
@@ -34,4 +52,20 @@ MatTableToolbar.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
 };
 
-export default MatTableToolbar;
+
+const mapStateToProps = (state) => {
+  return {
+    inquires: state.products.inquiredDetails,
+    carts: state.products.cartsDetails,
+    user: state.products.user,
+  };
+};
+
+export default connect(mapStateToProps, {
+  AddInquiry,
+  GetInquires,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+})(MatTableToolbar);

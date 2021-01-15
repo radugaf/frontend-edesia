@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { Card, CardBody, Col } from "reactstrap";
 import { connect } from "react-redux";
+import { toastr } from "react-redux-toastr";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -72,7 +73,9 @@ const MatTable = ({
   inquires,
 }) => {
   
-  const data = carts && carts.instant_delivery_items || []
+  const data1 = carts && carts.instant_delivery_items || []
+  const data2 = carts && carts.not_instant_delivery_items && carts.not_instant_delivery_items.filter((cart) =>cart.is_enquiry_solved && cart.custom_status === "COMPLETED")
+  const data = [...data1,...data2 || []]
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
   const [selected, setSelected] = useState(new Map([]));
@@ -98,7 +101,21 @@ const MatTable = ({
   //   console.log({ newcurrentQty });
   //   setCurrentQty(newcurrentQty);
   // };
-  
+  const UpdateQty = (e, product_item_id, price) => {
+    console.log({ value: e.target.value });
+    if (+e.target.value >= 1) {
+      UpdateCart({
+        product_id: product_item_id,
+        quantity: +e.target.value,
+        price,
+      });
+      GetAddToCart();
+      toastr.success("Cart Qty Update", "Numar produse updated");
+    } else {
+      toastr.error("Numar produse not less than 1");
+    }
+  };
+
   const handleRequestSort = (event, property) => {
     const orderByTemp = property;
     let orderTemp = "desc";
@@ -204,6 +221,14 @@ const MatTable = ({
                           scope="row"
                           padding="none"
                         >
+                        <img src={`${URL}${d.product_image_url}`}></img>
+                        </TableCell>
+                        <TableCell
+                          className="material-table__cell material-table__cell-right"
+                          component="th"
+                          scope="row"
+                          padding="none"
+                        >
                           {d.product_title}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
@@ -211,21 +236,24 @@ const MatTable = ({
                         {/* TODO:Supplier */}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.product_price}
+                          {d.final_price}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.quantity_type}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {/* {d.quantity_type} */}
                           {/* TODO:cota tva */}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
+                          {d.product_quantity}
+                          </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
                           <input
-                            // onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                          />
+                          disabled={!d.is_editable}
+                          min={1}
+                          max={d.product_total_stock}
+                          onBlur={(e) => {UpdateQty(e, d.product_item_id, d.product_price)}}/>
                         </TableCell>
-                        
                         <TableCell className="material-table__cell material-table__cell-right">
                         {d.final_price}
                         </TableCell>
@@ -270,7 +298,7 @@ const MatTable = ({
 const mapStateToProps = (state) => {
   return {
     inquires: state.products.inquiredDetails,
-    // carts: state.products.cartsDetails,
+    carts: state.products.cartsDetails,
     user: state.products.user,
   };
 };

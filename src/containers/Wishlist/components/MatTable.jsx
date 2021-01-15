@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Card, CardBody, Col } from "reactstrap";
-
+import { connect } from "react-redux";
+import { toastr } from "react-redux-toastr";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,6 +11,14 @@ import TablePagination from "@material-ui/core/TablePagination";
 
 import MatTableHead from "./MatTableHead";
 import MatTableToolbar from "./MatTableToolbar";
+import {  
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+  GetInquires,
+ } from "../../../redux/actions/products";
+import { URL } from "../../../requests";
 
 let counter = 0;
 
@@ -52,27 +61,58 @@ const getSorting = (order, orderBy) => {
   };
 };
 
-const MatTable = () => {
+const MatTable = ({
+  carts,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+  user,
+  GetInquires,
+  inquires,
+}) => {
+  let data = carts && carts.not_instant_delivery_items || []
+  data = data.filter((cd)=>cd.custom_status ==='PENDING')
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
   const [selected, setSelected] = useState(new Map([]));
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [data, setData] = useState([
-    createData("Cupcake", "Kaufland", 3.7, "kg", "9%", 50, 1350),
-    createData("Donut", "Lidl", 25.0, "g", "9%", 60, 1350),
-    createData("Eclair", "Metro", 16.0, "L", "19%", 120, 1350),
-    createData("Frozen yoghurt", "Kaufland", 6.0, "ml", "9%", 35, 1350),
-    createData("Gingerbread", "Kaufland", 16.0, "kg", "19%", 40, 1350),
-    createData("Honeycomb", "Metro", 3.2, "g", "19%", 75, 1350),
-    createData("Ice cream sandwich", "Metro", 37, "L", "9%", 89, 1350),
-    createData("Jelly Bean", "Lidl", 10.0, "ml", "19%", 100, 1350), 
-    createData("KitKat", "Metro", 26.0, "kg", "19%", 29, 1350),
-    createData("Lollipop", "Kaufland", 0.2, "g", "9%", 58, 1350),
-    createData("Marshmallow", 318, 0, "L", "19%", 10, 1350),
-    createData("Nougat", "Metro", 19.0, "kg", "9%", 3, 1350),
-    createData("Oreo", "Lidl", 18.0, "g", "9%", 560, 1350),
-  ]);
+  useEffect(() => {
+    GetAddToCart();
+  }, []);
+  // const [data, setData] = useState([
+  //   createData("Cupcake", "Kaufland", 3.7, "kg", "9%", 50, 1350),
+  //   createData("Donut", "Lidl", 25.0, "g", "9%", 60, 1350),
+  //   createData("Eclair", "Metro", 16.0, "L", "19%", 120, 1350),
+  //   createData("Frozen yoghurt", "Kaufland", 6.0, "ml", "9%", 35, 1350),
+  //   createData("Gingerbread", "Kaufland", 16.0, "kg", "19%", 40, 1350),
+  //   createData("Honeycomb", "Metro", 3.2, "g", "19%", 75, 1350),
+  //   createData("Ice cream sandwich", "Metro", 37, "L", "9%", 89, 1350),
+  //   createData("Jelly Bean", "Lidl", 10.0, "ml", "19%", 100, 1350), 
+  //   createData("KitKat", "Metro", 26.0, "kg", "19%", 29, 1350),
+  //   createData("Lollipop", "Kaufland", 0.2, "g", "9%", 58, 1350),
+  //   createData("Marshmallow", 318, 0, "L", "19%", 10, 1350),
+  //   createData("Nougat", "Metro", 19.0, "kg", "9%", 3, 1350),
+  //   createData("Oreo", "Lidl", 18.0, "g", "9%", 560, 1350),
+  // ]);
+
+
+  const UpdateQty = async (e, product_item_id, price) => {
+    console.log({ value: e.target.value });
+    if (+e.target.value >= 1) {
+      await UpdateCart({
+        product_id: product_item_id,
+        quantity: +e.target.value,
+        price,
+      });
+      GetAddToCart();
+      // window.location.href = "/wishlist";
+      toastr.success("WishList Qty Update", "Cantitate dorita updated");
+    } else {
+      toastr.error("Cantitate dorita not less than 1");
+    }
+  };
 
   const handleRequestSort = (event, property) => {
     const orderByTemp = property;
@@ -87,7 +127,7 @@ const MatTable = () => {
   const handleSelectAllClick = (event, checked) => {
     if (checked) {
       const newSelected = new Map();
-      data.map((n) => newSelected.set(n.id, true));
+      data.map((n) => newSelected.set(n.product_item_id, true));
       setSelected(newSelected);
       return;
     }
@@ -118,7 +158,7 @@ const MatTable = () => {
     for (let i = 0; i < [...selected].filter((el) => el[1]).length; i += 1) {
       copyData = copyData.filter((obj) => obj.id !== selected[i]);
     }
-    setData(copyData);
+    // setData(copyData);
     setSelected(new Map([]));
   };
 
@@ -134,6 +174,7 @@ const MatTable = () => {
             <h5 className="bold-text">Wishlist</h5>
           </div>
           <MatTableToolbar
+            selectedData={[...selected].filter((el) => el[1]).map((el)=>el[0])}
             numSelected={[...selected].filter((el) => el[1]).length}
             handleDeleteSelected={handleDeleteSelected}
             onRequestSort={handleRequestSort}
@@ -153,15 +194,15 @@ const MatTable = () => {
                   .sort(getSorting(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((d) => {
-                    const select = isSelected(d.id);
+                    const select = isSelected(d.product_item_id);
                     return (
                       <TableRow
                         className="material-table__row"
                         role="checkbox"
-                        onClick={(event) => handleClick(event, d.id)}
+                        onClick={(event) => handleClick(event, d.product_item_id)}
                         aria-checked={select}
                         tabIndex={-1}
-                        key={d.id}
+                        key={d.product_item_id}
                         selected={select}
                       >
                         <TableCell
@@ -179,24 +220,35 @@ const MatTable = () => {
                           scope="row"
                           padding="none"
                         >
-                          {d.name}
+                          {d.product_title}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.desired_qty}
+                            {/* {d.product_quantity} */}
+                        {/* TODO:Supplier */}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.available_qty}
+                          {d.quantity_by_restaurant}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.price}
+                          {d.quantity_type}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.um}
+                           {/* TODO:cota tva */}
                         </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          {d.product_quantity}
+                          </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                         <input
-                            // onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                          />
+                        min={1}
+                        disabled={!d.is_editable}
+                      label="Cantitate dorita"
+                      onBlur={(e) => {
+                        UpdateQty(e, d.product_item_id, d.product_price);
+                      }}
+                      type="value"
+                      className="cart-page-cantitate-dorita"
+                    />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           QTY Inpput * Price
@@ -235,4 +287,18 @@ const MatTable = () => {
   );
 };
 
-export default MatTable;
+
+const mapStateToProps = (state) => {
+  return {
+    inquires: state.products.inquiredDetails,
+    carts: state.products.cartsDetails,
+    user: state.products.user,
+  };
+};
+export default connect(mapStateToProps, {
+  GetInquires,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+})(MatTable);
