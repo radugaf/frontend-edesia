@@ -6,6 +6,7 @@ import '../../scss/app.scss';
 import Router from './Router';
 import store from './store';
 import ScrollToTop from './ScrollToTop';
+import ReduxToastr from "react-redux-toastr";
 
 class App extends Component {
   constructor() {
@@ -23,11 +24,28 @@ class App extends Component {
     });
   }
 
+  
+
   render() {
+    const alertOptions = {
+      timeout: 3000,
+      newestOnTop: false,
+      position: "top-right",
+      preventDuplicates: true,
+      transitionIn: "fadeIn",
+      transitionOut: "fadeOut",
+      progressBar: true,
+      closeOnToastrClick: true,
+    };
+
     const { loaded, loading } = this.state;
     return (
       <Provider store={store}>
         <BrowserRouter>
+        <ReduxToastr
+            getState={(state) => state.toastr} // This is the default
+            {...alertOptions}
+          />
           <ScrollToTop>
             <Fragment>
               {!loaded

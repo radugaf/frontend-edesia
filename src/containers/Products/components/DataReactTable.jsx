@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import axios from "axios";
+
 import {
   Card, CardBody, Col,
 } from 'reactstrap';
 import ReactTableBase from '../../../shared/components/table/ReactTableBase';
 import ReactTableCustomizer from '../../../shared/components/table/components/ReactTableCustomizer';
+import {  ProductFetch,
+  AddToCart,
+  SetToken,
+  SupplierProductFetch,
+  tokenConfig,
+ } from "../../../redux/actions/products";
+
+  import requests, { URL, CREDENTIALS, BACKEND_URL, TOKEN } from "../../../requests";
 
 const reorder = (rows, startIndex, endIndex) => {
   const result = Array.from(rows);
@@ -14,17 +25,58 @@ const reorder = (rows, startIndex, endIndex) => {
   return result;
 };
 
-const DataReactTable = ({ reactTableData }) => {
-  const [rows, setData] = useState(reactTableData.tableRowsData);
+const DataReactTable = ({
+  ProductFetch,
+  AddToCart,
+  SetToken,
+  products,
+  authErrors,
+  user,
+  SupplierProductFetch,
+  reactTableData }) => {
+    // reactTableData.tableRowsData
+    console.log({rows:reactTableData.tableRowsData,products})
+  const [rows, setData] = useState([]);
   const [isEditable, setIsEditable] = useState(false);
-  const [isResizable, setIsResizable] = useState(false);
-  const [isSortable, setIsSortable] = useState(false);
+  const [isResizable, setIsResizable] = useState(true);
+  const [isSortable, setIsSortable] = useState(true);
   const [isDisabledDragAndDrop, setIsDisabledDragAndDrop] = useState(false);
   const [isDisabledEditable, setIsDisabledEditable] = useState(false);
   const [isDisabledResizable, setIsDisabledResizable] = useState(false);
   const [withDragAndDrop, setWithDragAndDrop] = useState(false);
-  const [withPagination, setWithPaginationTable] = useState(false);
+  const [withPagination, setWithPaginationTable] = useState(true);
   const [withSearchEngine, setWithSearchEngine] = useState(true);
+
+
+
+  const call = async () => {
+    let userType = await axios.get(
+      `${BACKEND_URL}${requests.GET_CHECK_USER_TYPE}`,
+      tokenConfig()
+    );
+    userType = (userType && userType.data && userType.data.data) || {
+      is_restaurant_owner: true,
+    };
+    if (userType && (userType.is_company_owner || userType.is_company_staff)) {
+      SupplierProductFetch();
+    }
+    if (
+      userType &&
+      (userType.is_restaurant_staff || userType.is_restaurant_owner)
+    ) {
+      ProductFetch();
+    }
+  };
+  useEffect(() => {
+    call();
+  }, []);
+
+
+  const onSubmit = (e, product_id, type) => {
+    e.preventDefault();
+    AddToCart({ product_id: product_id });
+    // toastr.success(`Add To ${type}`, `Add To ${type} successfully added `);
+  };
 
   const handleClickIsEditable = () => {
     if (!withDragAndDrop) setIsDisabledResizable(!isDisabledResizable);
@@ -81,17 +133,27 @@ const DataReactTable = ({ reactTableData }) => {
     manualPageSize: [10, 20, 30, 40],
     placeholder: 'Search by First name...',
   };
-
+const newProducts = products && products.map((product)=>{
+  let className =""
+  let buttonName ="Cart"
+  if(product.instant_delivery){
+    className="btn btn-success btn-sm"
+    buttonName="Cart" 
+  }else{
+    className="btn btn-primary btn-sm"
+    buttonName="Wishlist"
+  }
+  product['button']=<div class={className} onClick={(e) => {onSubmit(e,product.id,buttonName)}}>Adauga in {buttonName}</div>
+  return product
+})
   return (
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
           <div className="react-table__wrapper">
             <div className="card__title">
-              <h5 className="bold-text">data react-table</h5>
-              <h5 className="subhead">Use table with&nbsp;
-                <span className="red-text">table customizer</span>
-              </h5>
+              <h5 className="bold-text">Catalog</h5>
+              
             </div>
             <ReactTableCustomizer
               handleClickIsEditable={handleClickIsEditable}
@@ -115,7 +177,8 @@ const DataReactTable = ({ reactTableData }) => {
           <ReactTableBase
             key={withSearchEngine || isResizable || isEditable ? 'modified' : 'common'}
             columns={reactTableData.tableHeaderData}
-            data={rows}
+            // data={rows}
+            data={newProducts}
             updateEditableData={updateEditableData}
             updateDraggableData={updateDraggableData}
             tableConfig={tableConfig}
@@ -138,4 +201,17 @@ DataReactTable.propTypes = {
   }).isRequired,
 };
 
-export default DataReactTable;
+const mapStateToProps = (state) => {
+  return {
+    products: state.products.productsDetails,
+    authErrors: state.products.error,
+    user: state.products.user,
+  };
+};
+
+export default connect(mapStateToProps, {
+  ProductFetch,
+  AddToCart,
+  SetToken,
+  SupplierProductFetch,
+})(DataReactTable);

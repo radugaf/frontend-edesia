@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, CardBody, Col } from "reactstrap";
 
 import Table from "@material-ui/core/Table";
@@ -11,20 +11,21 @@ import TablePagination from "@material-ui/core/TablePagination";
 import MatTableHead from "./MatTableHead";
 import MatTableToolbar from "./MatTableToolbar";
 
-import { GetInquires } from "../../../redux/actions/products";
-import { connect } from "react-redux";
-
 let counter = 0;
 
-const createData = (name, calories, fat, carbs, protein) => {
+const createData = (name, desired_qty, available_qty, price, um, cota_tva, supplier) => {
   counter += 1;
   return {
     id: counter,
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    desired_qty,
+    available_qty,
+    price,
+    um,
+    cota_tva,
+    supplier,
+
+    
   };
 };
 
@@ -51,13 +52,27 @@ const getSorting = (order, orderBy) => {
   };
 };
 
-const MatTable = ({ inquires, GetInquires, data }) => {
+const MatTable = () => {
   const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("calories");
+  const [orderBy, setOrderBy] = useState("price");
   const [selected, setSelected] = useState(new Map([]));
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [currentQty, setCurrentQty] = React.useState(new Map([]));
+  const [data, setData] = useState([
+    createData("Cupcake", "Kaufland", 3.7, "kg", "9%", 50, 1350),
+    createData("Donut", "Lidl", 25.0, "g", "9%", 60, 1350),
+    createData("Eclair", "Metro", 16.0, "L", "19%", 120, 1350),
+    createData("Frozen yoghurt", "Kaufland", 6.0, "ml", "9%", 35, 1350),
+    createData("Gingerbread", "Kaufland", 16.0, "kg", "19%", 40, 1350),
+    createData("Honeycomb", "Metro", 3.2, "g", "19%", 75, 1350),
+    createData("Ice cream sandwich", "Metro", 37, "L", "9%", 89, 1350),
+    createData("Jelly Bean", "Lidl", 10.0, "ml", "19%", 100, 1350), 
+    createData("KitKat", "Metro", 26.0, "kg", "19%", 29, 1350),
+    createData("Lollipop", "Kaufland", 0.2, "g", "9%", 58, 1350),
+    createData("Marshmallow", 318, 0, "L", "19%", 10, 1350),
+    createData("Nougat", "Metro", 19.0, "kg", "9%", 3, 1350),
+    createData("Oreo", "Lidl", 18.0, "g", "9%", 560, 1350),
+  ]);
 
   const handleRequestSort = (event, property) => {
     const orderByTemp = property;
@@ -69,36 +84,16 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     setOrderBy(orderByTemp);
   };
 
-  useEffect(() => {
-    GetInquires();
-  }, []);
-
-  const onChangeValueUpdate = (e, currentinq, index) => {
-    const inquiry = currentinq[index];
-    console.log({ inquiry, index });
-    const updatedQty = +e.target.value;
-    const newcurrentQty = new Map(currentQty);
-    const value = newcurrentQty.get(inquiry.product_item_id);
-    let qty = updatedQty;
-    newcurrentQty.set(inquiry.product_item_id, {
-      ...inquiry,
-      updateQty: updatedQty,
-    });
-    console.log({ newcurrentQty });
-    setCurrentQty(newcurrentQty);
-  };
-
   const handleSelectAllClick = (event, checked) => {
     if (checked) {
       const newSelected = new Map();
-      data.map((n) => newSelected.set(n.product_item_id, true));
+      data.map((n) => newSelected.set(n.id, true));
       setSelected(newSelected);
       return;
     }
     setSelected(new Map([]));
   };
 
-  // HandleSingle chekcbox click
   const handleClick = (event, id) => {
     const newSelected = new Map(selected);
     const value = newSelected.get(id);
@@ -118,14 +113,14 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     setRowsPerPage(Number(event.target.value));
   };
 
-  // const handleDeleteSelected = () => {
-  //   let copyData = [...data];
-  //   for (let i = 0; i < [...selected].filter(el => el[1]).length; i += 1) {
-  //     copyData = copyData.filter(obj => obj.id !== selected[i]);
-  //   }
-  //   setData(copyData);
-  //   setSelected(new Map([]));
-  // };
+  const handleDeleteSelected = () => {
+    let copyData = [...data];
+    for (let i = 0; i < [...selected].filter((el) => el[1]).length; i += 1) {
+      copyData = copyData.filter((obj) => obj.id !== selected[i]);
+    }
+    setData(copyData);
+    setSelected(new Map([]));
+  };
 
   const isSelected = (id) => !!selected.get(id);
   const emptyRows =
@@ -135,11 +130,12 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
+          <div className="card__title">
+            <h5 className="bold-text">Wishlist</h5>
+          </div>
           <MatTableToolbar
-            selectedData={currentQty}
-            checkedData={[...selected].filter((el) => el[1])}
             numSelected={[...selected].filter((el) => el[1]).length}
-            handleDeleteSelected={(e) => console.log(e)}
+            handleDeleteSelected={handleDeleteSelected}
             onRequestSort={handleRequestSort}
           />
           <div className="material-table__wrap">
@@ -156,18 +152,16 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                 {data
                   .sort(getSorting(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((d, index) => {
-                    const select = isSelected(d.product_item_id);
+                  .map((d) => {
+                    const select = isSelected(d.id);
                     return (
                       <TableRow
                         className="material-table__row"
                         role="checkbox"
-                        onClick={(event) =>
-                          handleClick(event, d.product_item_id)
-                        }
+                        onClick={(event) => handleClick(event, d.id)}
                         aria-checked={select}
                         tabIndex={-1}
-                        key={d.product_item_id}
+                        key={d.id}
                         selected={select}
                       >
                         <TableCell
@@ -185,21 +179,27 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           scope="row"
                           padding="none"
                         >
-                          {d.product_item_id}
+                          {d.name}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.calories}
+                          {d.desired_qty}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.fat}
+                          {d.available_qty}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          <input
-                            onBlur={(e) => onChangeValueUpdate(e, data, index)}
+                          {d.price}
+                        </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          {d.um}
+                        </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
+                        <input
+                            // onBlur={(e) => onChangeValueUpdate(e, data, index)}
                           />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.original_price}
+                          QTY Inpput * Price
                         </TableCell>
                       </TableRow>
                     );
@@ -235,15 +235,4 @@ const MatTable = ({ inquires, GetInquires, data }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    inquires: state.products.inquiredDetails,
-    user: state.products.user,
-  };
-};
-
-export default connect(mapStateToProps, {
-  GetInquires,
-  // DeclineInquiry,
-  // UpdateInquiry,
-})(MatTable);
+export default MatTable;

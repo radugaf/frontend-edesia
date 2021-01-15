@@ -35,6 +35,10 @@ class SidebarContent extends Component {
             <SidebarLink title="Products" route="/pages/products" onClick={this.hideSidebar} />
             <SidebarLink title="Inquiries" route="/pages/inquiries" onClick={this.hideSidebar} />
             <SidebarLink title="Cart" route="/pages/cart" onClick={this.hideSidebar} />
+            <SidebarLink title="Wishlist" route="/pages/wishlist" onClick={this.hideSidebar} />
+            <SidebarLink title="Dashboard" route="/pages/dashboard" onClick={this.hideSidebar} />
+            <SidebarLink title="Orders" route="/pages/orders" onClick={this.hideSidebar} />
+            <SidebarLink title="Order Hsitory" route="/pages/order-history" onClick={this.hideSidebar} />
           </SidebarCategory>
         </ul>
       </div>

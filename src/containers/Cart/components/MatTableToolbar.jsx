@@ -4,7 +4,27 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import MatTableFilterButton from './MatTableFilterButton';
 
-const MatTableToolbar = ({ numSelected, handleDeleteSelected, onRequestSort }) => (
+import { connect } from "react-redux";
+import { GetInquires,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder, } from "../../../redux/actions/products";
+
+
+const MatTableToolbar = ({GetAddToCart,PlaceOrder, numSelected, handleDeleteSelected, onRequestSort,selectedData }) => {
+  
+  const AddToOrder = (e) => {
+    e.preventDefault();
+    const product_ids = selectedData;
+    console.log({ product_ids });
+    PlaceOrder({ product_id: product_ids });
+    GetAddToCart();
+    window.location.href="/pages/cart"
+    // toastr.success("Create Order", "Order Created successfully");
+  };
+
+  return (
   <div className="material-table__toolbar-wrap">
     <Toolbar className="material-table__toolbar">
       <div>
@@ -15,7 +35,7 @@ const MatTableToolbar = ({ numSelected, handleDeleteSelected, onRequestSort }) =
       <div>
         {numSelected > 0 ? (
           
-        <Button variant="contained" color="primary">
+        <Button onClick={AddToOrder} variant="contained" color="primary">
           Order Now
         </Button>
         
@@ -26,7 +46,7 @@ const MatTableToolbar = ({ numSelected, handleDeleteSelected, onRequestSort }) =
       </div>
     </Toolbar>
   </div>
-);
+)};
 
 MatTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
@@ -34,4 +54,18 @@ MatTableToolbar.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
 };
 
-export default MatTableToolbar;
+const mapStateToProps = (state) => {
+  return {
+    inquires: state.products.inquiredDetails,
+    carts: state.products.cartsDetails,
+    user: state.products.user,
+  };
+};
+
+export default connect(mapStateToProps, {
+  GetInquires,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+})(MatTableToolbar);

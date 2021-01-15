@@ -218,7 +218,7 @@ export const DeleteCart = (data) => {
       await checkUserType(dispatch, getState);
 
       console.log({ deleteCartProduct });
-      window.location.href = "/cart";
+      window.location.href = "/pages/cart";
       // dispatch({ type: "ADD_TO_CART", payload: addToCartProduct.data });
     } catch (error) {
       console.log({ error });
@@ -316,7 +316,7 @@ export const UpdateInquiry = (data) => {
       dispatch({
         type: "STOP_LOADING",
       });
-      window.location.href = "/inquiries";
+      // window.location.href = "/inquiries";
     } catch (error) {
       console.log({ error });
       errorHandle(error, dispatch);
@@ -351,7 +351,7 @@ export const DeclineInquiry = (data) => {
       dispatch({
         type: "STOP_LOADING",
       });
-      window.location.href = "/inquiries";
+      window.location.href = "/pages/inquiries";
     } catch (error) {
       console.log({ error });
       errorHandle(error, dispatch);
@@ -517,7 +517,7 @@ export const PlaceOrder = (data) => {
       console.log({ placeOrder });
       // dispatch({ type: "ADD_TO_CART", payload: addToCartProduct.data });
       await checkUserType(dispatch, getState);
-
+      GetAddToCart()
       dispatch({
         type: "STOP_LOADING",
       });
@@ -572,7 +572,7 @@ export const SetToken = (data) => {
         type: "STOP_LOADING",
       });
       toastr.success("Login Successfully", "Login Successfully");
-      window.location.href = "/products";
+      window.location.href = "/pages/products";
     } catch (error) {
       console.log({ error });
       errorHandle(error, dispatch);

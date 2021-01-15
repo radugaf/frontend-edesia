@@ -25,13 +25,10 @@ const rows = [
     id: 'cota_tva', disablePadding: false, label: 'Cota TVA%',
   },
   {
-    id: 'desired_qty', disablePadding: false, label: 'Cantitate',
+    id: 'desired_qty', disablePadding: false, label: 'Cantitate Dorita',
   },
   {
-    id: 'available_qty', disablePadding: false, label: 'Total',
-  },
-  {
-    id: 'remaining_time', disablePadding: false, label: 'Timp Ramas',
+    id: 'available_qty', disablePadding: false, label: 'Total Estimativ',
   },
 ];
 

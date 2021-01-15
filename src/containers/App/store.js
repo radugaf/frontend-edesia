@@ -8,6 +8,7 @@ import {
   rtlReducer,
   products,
 } from "../../redux/reducers/index";
+import { reducer as toastrReducer } from "react-redux-toastr";
 
 const middlewares = [thunk];
 
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   theme: themeReducer,
   sidebar: sidebarReducer,
   rtl: rtlReducer,
+  toastr: toastrReducer,
   products,
 });
 

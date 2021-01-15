@@ -38,13 +38,13 @@ const MatTableFilterButton = ({ onRequestSort }) => {
         onClose={handleClose}
         className="material-table__filter-menu"
       >
-        <MenuItem onClick={handleSort('name')} className="material-table__filter-menu-item">Produs</MenuItem>
-        <MenuItem onClick={handleSort('desired_qty')} className="material-table__filter-menu-item">Cantitate</MenuItem>
-        <MenuItem onClick={handleSort('price')} className="material-table__filter-menu-item">Pret</MenuItem>
-        <MenuItem onClick={handleSort('um')} className="material-table__filter-menu-item">U.M.</MenuItem>
-        <MenuItem onClick={handleSort('supplier')} className="material-table__filter-menu-item">Furnizor</MenuItem>
-        <MenuItem onClick={handleSort('cota_tva')} className="material-table__filter-menu-item">TVA</MenuItem>
-        <MenuItem onClick={handleSort('available_qty')} className="material-table__filter-menu-item">Total Estimativ</MenuItem>
+        <MenuItem onClick={handleSort('name')} className="material-table__filter-menu-item">Name</MenuItem>
+        <MenuItem onClick={handleSort('calories')} className="material-table__filter-menu-item">
+          Calories
+        </MenuItem>
+        <MenuItem onClick={handleSort('fat')} className="material-table__filter-menu-item">Fat</MenuItem>
+        <MenuItem onClick={handleSort('carbs')} className="material-table__filter-menu-item">Carbs</MenuItem>
+        <MenuItem onClick={handleSort('protein')} className="material-table__filter-menu-item">Protein</MenuItem>
       </Menu>
     </div>
   );
