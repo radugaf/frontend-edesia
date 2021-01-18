@@ -6,7 +6,6 @@ const CreateTableData = () => {
       {
         Header: "#",
         accessor: "id",
-        Footer: "Middle age:",
         disableGlobalFilter: true,
         width: 65,
       },

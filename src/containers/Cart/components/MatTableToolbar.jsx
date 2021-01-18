@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import {
+  Button, ButtonToolbar, Card, CardBody, Col,
+} from 'reactstrap';
 import MatTableFilterButton from './MatTableFilterButton';
+import ThumbUpOutlineIcon from 'mdi-react/ThumbUpOutlineIcon';
 
 import { connect } from "react-redux";
 import { GetInquires,
@@ -35,9 +38,7 @@ const MatTableToolbar = ({GetAddToCart,PlaceOrder, numSelected, handleDeleteSele
       <div>
         {numSelected > 0 ? (
           
-        <Button onClick={AddToOrder} variant="contained" color="primary">
-          Order Now
-        </Button>
+        <Button onClick={AddToOrder} className="icon" color="primary"><p><ThumbUpOutlineIcon /> Plaseaza Comanda</p></Button>
 
         ) : (
           <MatTableFilterButton onRequestSort={onRequestSort} />
