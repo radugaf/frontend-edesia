@@ -7,6 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Checkbox from "@material-ui/core/Checkbox";
 import TablePagination from "@material-ui/core/TablePagination";
+import TextField from "@material-ui/core/TextField";
 
 import MatTableHead from "./MatTableHead";
 import MatTableToolbar from "./MatTableToolbar";
@@ -194,9 +195,14 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           {d.quantity_by_restaurant}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          <input
+                          {/* <input
                             onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                          />
+                          /> */}
+                          <TextField
+                              id="standard-basic"
+                              label="Cantitate disponibila"
+                              onBlur={(e) => onChangeValueUpdate(e, data, index)}
+                            />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.original_price}

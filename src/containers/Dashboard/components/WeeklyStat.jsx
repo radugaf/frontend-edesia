@@ -46,8 +46,8 @@ const WeeklyStat = () => {
       lg={6}
       xl={3}
       xs={12}
-      title={t('booking_dashboard.weekly_stat')}
-      subhead="Top selling items statistic by last month"
+      title={t('Review-urile tale')}
+      subhead="Vezi ce spun Restaurantele despre tine"
     >
       <div className="dashboard__weekly-stat">
         <div className="dashboard__weekly-stat-chart">
@@ -93,7 +93,7 @@ const WeeklyStat = () => {
           </div>
         </div>
         <hr />
-        <PanelTitle title={t('booking_dashboard.social_score')} />
+        <PanelTitle title={t('Cele mai bine vandute produse')} />
         <div className="dashboard__social-stat">
           {social.map(item => (
             <SocialScore key={item.id} progress={item.progress}>

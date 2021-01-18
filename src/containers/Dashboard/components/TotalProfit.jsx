@@ -34,7 +34,7 @@ const TotalProfit = () => {
       <Card>
         <CardBody className="dashboard__card-widget">
           <div className="card__title">
-            <h5 className="bold-text">{t('profit total')}</h5>
+            <h5 className="bold-text">{t('Vanzari in ultimele 90 zile')}</h5>
           </div>
           <div className="dashboard__total">
             <TrendingUpIcon className="dashboard__trend-icon" />

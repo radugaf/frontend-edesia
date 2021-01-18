@@ -34,7 +34,7 @@ const OrdersToday = () => {
       <Card>
         <CardBody className="dashboard__card-widget">
           <div className="card__title">
-            <h5 className="bold-text">{t('Comenzi / zi')}</h5>
+            <h5 className="bold-text">{t('comenzi in ultimele 90 de zile')}</h5>
           </div>
           <div className="dashboard__total">
             <TrendingDownIcon className="dashboard__trend-icon" />

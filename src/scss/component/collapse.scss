@@ -37,8 +37,8 @@
 
     .collapse__content {
       @include directify($directions) {
-        #{directed('padding-right')}: 20px;
-        #{directed('padding-left')}: 15px;
+        #{directed('padding-right')}: 0px;
+        #{directed('padding-left')}: 0px;
       }
       padding-top: 16px;
       padding-bottom: 20px;
@@ -58,8 +58,8 @@
 
     .collapse__content {
       @include directify($directions) {
-        #{directed('padding-right')}: 20px;
-        #{directed('padding-left')}: 25px;
+        #{directed('padding-right')}: 0px;
+        #{directed('padding-left')}: 0px;
       }
       padding-top: 15px;
       padding-bottom: 0px;

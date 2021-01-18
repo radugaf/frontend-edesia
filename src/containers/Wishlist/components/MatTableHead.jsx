@@ -10,6 +10,10 @@ import { RTLProps } from '../../../shared/prop-types/ReducerProps';
 
 const rows = [
   {
+    id: 'img', disablePadding: false, label: 'Image',
+  },
+
+  {
     id: 'name', disablePadding: true, label: 'Produs',
   },
   {
@@ -33,6 +37,8 @@ const rows = [
   {
     id: 'available_qty', disablePadding: false, label: 'Total Estimativ',
   },
+  
+  
 ];
 
 const createSortHandler = (property, onRequestSort) => (event) => {

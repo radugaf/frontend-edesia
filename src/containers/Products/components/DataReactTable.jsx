@@ -15,7 +15,7 @@ import {  ProductFetch,
   tokenConfig,
  } from "../../../redux/actions/products";
 
-  import requests, { URL, CREDENTIALS, BACKEND_URL, TOKEN } from "../../../requests";
+  import requests, { URL, BACKEND_URL } from "../../../requests";
 
 const reorder = (rows, startIndex, endIndex) => {
   const result = Array.from(rows);
@@ -28,14 +28,11 @@ const reorder = (rows, startIndex, endIndex) => {
 const DataReactTable = ({
   ProductFetch,
   AddToCart,
-  SetToken,
   products,
-  authErrors,
-  user,
   SupplierProductFetch,
   reactTableData }) => {
     // reactTableData.tableRowsData
-    console.log({rows:reactTableData.tableRowsData,products})
+    console.log({rows:reactTableData.tableRowsData, products})
   const [rows, setData] = useState([]);
   const [isEditable, setIsEditable] = useState(false);
   const [isResizable, setIsResizable] = useState(true);
@@ -46,8 +43,6 @@ const DataReactTable = ({
   const [withDragAndDrop, setWithDragAndDrop] = useState(false);
   const [withPagination, setWithPaginationTable] = useState(true);
   const [withSearchEngine, setWithSearchEngine] = useState(true);
-
-
 
   const call = async () => {
     let userType = await axios.get(
@@ -72,12 +67,11 @@ const DataReactTable = ({
   }, []);
 
 
-  const onSubmit = (e, product_id, type) => {
+  const onSubmit = (e, product_id) => {
     e.preventDefault();
     AddToCart({ product_id: product_id });
     // toastr.success(`Add To ${type}`, `Add To ${type} successfully added `);
   };
-
   const handleClickIsEditable = () => {
     if (!withDragAndDrop) setIsDisabledResizable(!isDisabledResizable);
     setIsResizable(false);
@@ -123,6 +117,7 @@ const DataReactTable = ({
       return item;
     }));
   };
+  
   const tableConfig = {
     isEditable,
     isResizable,
@@ -131,8 +126,9 @@ const DataReactTable = ({
     withPagination,
     withSearchEngine,
     manualPageSize: [10, 20, 30, 40],
-    placeholder: 'Search by First name...',
+    placeholder: 'Cauta Produs ...'
   };
+
 const newProducts = products && products.map((product)=>{
   let className =""
   let buttonName ="Cart"
@@ -155,7 +151,6 @@ const newProducts = products && products.map((product)=>{
           <div className="react-table__wrapper">
             <div className="card__title">
               <h5 className="bold-text">Catalog</h5>
-              
             </div>
             <ReactTableCustomizer
               handleClickIsEditable={handleClickIsEditable}
@@ -176,10 +171,11 @@ const newProducts = products && products.map((product)=>{
               fullCustomizer
             />
           </div>
+
+          
           <ReactTableBase
             key={withSearchEngine || isResizable || isEditable ? 'modified' : 'common'}
             columns={reactTableData.tableHeaderData}
-            // data={rows}
             data={newProducts}
             updateEditableData={updateEditableData}
             updateDraggableData={updateDraggableData}

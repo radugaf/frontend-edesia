@@ -61,8 +61,7 @@ const Reservations = ({ dir, themeName }) => {
       lg={6}
       xl={3}
       md={12}
-      title={t('booking_dashboard.reservations')}
-      subhead="Reservation overview"
+      title={t('Volum comenzi anticipat')}
       before={<OurMission />}
       panelClass="dashboard__booking-reservations-panel"
     >

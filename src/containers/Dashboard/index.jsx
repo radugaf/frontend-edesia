@@ -1,6 +1,8 @@
-import React from 'react';
 import { Container, Row } from 'reactstrap';
-import RecentOrders from './components/RecentOrders';
+import React,{useEffect} from 'react';
+import { connect } from "react-redux";
+
+import RecentOrders from '../Cart/components/RecentOrders';
 import TotalProducts from './components/TotalProducts';
 import TotalProfit from './components/TotalProfit';
 import OrdersToday from './components/OrdersToday';
@@ -8,7 +10,19 @@ import Subscriptions from './components/Subscriptions';
 import WeeklyStat from './components/WeeklyStat'
 import Reservations from './components/Reservations';
 
-const Dashboard = () => {
+import {  
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+  GetInquires,
+ } from "../../redux/actions/products";
+
+const Dashboard = ({GetAddToCart, carts}) => {
+
+  useEffect(() => {
+    GetAddToCart();
+  }, []);
   
   return (
     <Container className="dashboard">
@@ -19,7 +33,7 @@ const Dashboard = () => {
         <Subscriptions />
       </Row>
       <Row>
-        <RecentOrders />
+        <RecentOrders carts={carts} />
         <Reservations />
         <WeeklyStat />
       </Row>
@@ -27,4 +41,19 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    inquires: state.products.inquiredDetails,
+    carts: state.products.cartsDetails,
+    user: state.products.user,
+  };
+};
+
+
+export default connect(mapStateToProps, {
+  GetInquires,
+  GetAddToCart,
+  DeleteCart,
+  UpdateCart,
+  PlaceOrder,
+})(Dashboard);

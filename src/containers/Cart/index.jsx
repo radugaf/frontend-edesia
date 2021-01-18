@@ -13,7 +13,7 @@ import {
   GetInquires,
  } from "../../redux/actions/products";
 
-const MaterialTable = ({GetAddToCart,carts}) =>{
+const MaterialTable = ({GetAddToCart, carts}) =>{
 
   useEffect(() => {
     GetAddToCart();

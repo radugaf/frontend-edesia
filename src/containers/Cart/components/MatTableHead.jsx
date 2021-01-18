@@ -36,9 +36,7 @@ const rows = [
   {
     id: 'available_qty', disablePadding: false, label: 'Total',
   },
-  {
-    id: 'remaining_time', disablePadding: false, label: 'Timp Ramas',
-  },
+
 ];
 
 const createSortHandler = (property, onRequestSort) => (event) => {

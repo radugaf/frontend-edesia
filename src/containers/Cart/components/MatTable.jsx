@@ -1,7 +1,8 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, Col } from "reactstrap";
 import { connect } from "react-redux";
 import { toastr } from "react-redux-toastr";
+import TextField from "@material-ui/core/TextField";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -12,18 +13,27 @@ import TablePagination from "@material-ui/core/TablePagination";
 
 import MatTableHead from "./MatTableHead";
 import MatTableToolbar from "./MatTableToolbar";
-import {  
+import {
   GetAddToCart,
   DeleteCart,
   UpdateCart,
   PlaceOrder,
   GetInquires,
- } from "../../../redux/actions/products";
- import { URL } from "../../../requests";
+} from "../../../redux/actions/products";
+import { URL } from "../../../requests";
 
 let counter = 0;
 
-const createData = (name, desired_qty, available_qty, price, um, cota_tva, supplier, remaining_time) => {
+const createData = (
+  name,
+  desired_qty,
+  available_qty,
+  price,
+  um,
+  cota_tva,
+  supplier,
+  remaining_time
+) => {
   counter += 1;
   return {
     id: counter,
@@ -34,8 +44,7 @@ const createData = (name, desired_qty, available_qty, price, um, cota_tva, suppl
     um,
     cota_tva,
     supplier,
-    remaining_time
-    
+    remaining_time,
   };
 };
 
@@ -72,10 +81,14 @@ const MatTable = ({
   GetInquires,
   inquires,
 }) => {
-  
-  const data1 = carts && carts.instant_delivery_items || []
-  const data2 = carts && carts.not_instant_delivery_items && carts.not_instant_delivery_items.filter((cart) =>cart.is_enquiry_solved && cart.custom_status === "COMPLETED")
-  const data = [...data1,...data2 || []]
+  const data1 = (carts && carts.instant_delivery_items) || [];
+  const data2 =
+    carts &&
+    carts.not_instant_delivery_items &&
+    carts.not_instant_delivery_items.filter(
+      (cart) => cart.is_enquiry_solved && cart.custom_status === "COMPLETED"
+    );
+  const data = [...data1, ...(data2 || [])];
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
   const [selected, setSelected] = useState(new Map([]));
@@ -166,7 +179,8 @@ const MatTable = ({
 
   const isSelected = (id) => !!selected.get(id);
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, (data && data.length||0) - page * rowsPerPage);
+    rowsPerPage -
+    Math.min(rowsPerPage, ((data && data.length) || 0) - page * rowsPerPage);
 
   return (
     <Col md={12} lg={12}>
@@ -176,7 +190,9 @@ const MatTable = ({
             <h5 className="bold-text">Cart</h5>
           </div>
           <MatTableToolbar
-            selectedData={[...selected].filter((el) => el[1]).map((el)=>el[0])}
+            selectedData={[...selected]
+              .filter((el) => el[1])
+              .map((el) => el[0])}
             numSelected={[...selected].filter((el) => el[1]).length}
             handleDeleteSelected={handleDeleteSelected}
             onRequestSort={handleRequestSort}
@@ -192,78 +208,93 @@ const MatTable = ({
                 rowCount={data && data.length}
               />
               <TableBody>
-                {data && data.sort(getSorting(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((d) => {
-                    const select = isSelected(d.product_item_id);
-                    return (
-                      <TableRow
-                        className="material-table__row"
-                        role="checkbox"
-                        onClick={(event) => handleClick(event, d.product_item_id)}
-                        aria-checked={select}
-                        tabIndex={-1}
-                        key={d.product_item_id}
-                        selected={select}
-                      >
-                        <TableCell
-                          className="material-table__cell"
-                          padding="checkbox"
+                {data &&
+                  data
+                    .sort(getSorting(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((d) => {
+                      const select = isSelected(d.product_item_id);
+                      return (
+                        <TableRow
+                          className="material-table__row"
+                          role="checkbox"
+                          onClick={(event) =>
+                            handleClick(event, d.product_item_id)
+                          }
+                          aria-checked={select}
+                          tabIndex={-1}
+                          key={d.product_item_id}
+                          selected={select}
                         >
-                          <Checkbox
-                            checked={select}
-                            className="material-table__checkbox"
-                          />
-                        </TableCell>
-                        <TableCell
-                          className="material-table__cell material-table__cell-right"
-                          component="th"
-                          scope="row"
-                          padding="none"
-                        >
-                        <img src={`${URL}${d.product_image_url}`}></img>
-                        </TableCell>
-                        <TableCell
-                          className="material-table__cell material-table__cell-right"
-                          component="th"
-                          scope="row"
-                          padding="none"
-                        >
-                          {d.product_title}
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {/* {d.product_quantity} */}
-                        {/* TODO:Supplier */}
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {d.final_price}
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {d.quantity_type}
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {/* TODO:cota tva */}
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {d.product_quantity}
+                          <TableCell
+                            className="material-table__cell"
+                            padding="checkbox"
+                          >
+                            <Checkbox
+                              checked={select}
+                              className="material-table__checkbox"
+                            />
                           </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          <input
-                          disabled={!d.is_editable}
-                          min={1}
-                          max={d.product_total_stock}
-                          onBlur={(e) => {UpdateQty(e, d.product_item_id, d.product_price)}}/>
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                        {d.final_price}
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {/* {d.remaining_time} */}
-                          {/* TODO: */}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                          <TableCell
+                            className="material-table__cell material-table__cell-right"
+                            component="th"
+                            scope="row"
+                            padding="none"
+                          >
+                            <div className="circle_square">
+                              <img src={`${URL}${d.product_image_url}`}></img>
+                            </div>
+                          </TableCell>
+                          <TableCell
+                            className="material-table__cell material-table__cell-right"
+                            component="th"
+                            scope="row"
+                            padding="none"
+                          >
+                            {d.product_title}
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            {/* {d.product_quantity} */}
+                            {/* TODO:Supplier */}
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            {d.final_price}
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            {d.quantity_type}
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            {/* TODO:cota tva */}
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            {d.product_quantity}
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            <TextField
+                              id="standard-basic"
+                              label="Completeaza cantitatea"
+                              disabled={!d.is_editable}
+                              min={1}
+                              max={d.product_total_stock}
+                              onBlur={(e) => {
+                                UpdateQty(
+                                  e,
+                                  d.product_item_id,
+                                  d.product_price
+                                );
+                              }}
+                            />
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            {d.final_price}
+                          </TableCell>
+                          <TableCell className="material-table__cell material-table__cell-right">
+                            {/* {d.remaining_time} */}
+                            {/* TODO: */}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
                 {emptyRows > 0 && (
                   <TableRow style={{ height: 49 * emptyRows }}>
                     <TableCell colSpan={6} />
