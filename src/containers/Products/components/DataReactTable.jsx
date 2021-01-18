@@ -7,7 +7,7 @@ import {
   Card, CardBody, Col,
 } from 'reactstrap';
 import ReactTableBase from '../../../shared/components/table/ReactTableBase';
-import ReactTableCustomizer from '../../../shared/components/table/components/ReactTableCustomizer';
+// import ReactTableCustomizer from '../../../shared/components/table/components/ReactTableCustomizer';
 import {  ProductFetch,
   AddToCart,
   SetToken,
@@ -150,9 +150,9 @@ const newProducts = products && products.map((product)=>{
         <CardBody>
           <div className="react-table__wrapper">
             <div className="card__title">
-              <h5 className="bold-text">Catalog</h5>
+              <h3 className="bold-text">🍲 Catalog Produse</h3>
             </div>
-            <ReactTableCustomizer
+            {/* <ReactTableCustomizer
               handleClickIsEditable={handleClickIsEditable}
               handleClickIsResizable={handleClickIsResizable}
               handleClickIsSortable={handleClickIsSortable}
@@ -169,7 +169,7 @@ const newProducts = products && products.map((product)=>{
               withPagination={withPagination}
               withSearchEngine={withSearchEngine}
               fullCustomizer
-            />
+            /> */}
           </div>
 
           

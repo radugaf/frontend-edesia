@@ -24,7 +24,7 @@ const BoxedCollapseFullWidth = ({ GetRestaurantOrder,MarkAsDelivery, MarkAsShipp
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">{t('Orders History')}</h5>
+            <h3 className="bold-text">{t('Orders History')}</h3>
           </div>
           {Object.keys(orders) && Object.keys(orders).map((key) => (
               <Collapse title={key} className="with-shadow">

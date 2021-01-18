@@ -165,7 +165,7 @@ const MatTable = ({
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Wishlist</h5>
+            <h3 className="bold-text">🧞 Wishlist</h3>
           </div>
           <MatTableToolbar
             selectedData={[...selected]
@@ -241,17 +241,14 @@ const MatTable = ({
                           {d.quantity_type}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {/* TODO:cota tva */}
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {d.product_quantity}
+                          9%
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                         
 
                           <TextField
                             id="standard-basic"
-                            label="Completeaza cantitatea"
+                            label={d.product_quantity}
                             disabled={!d.is_editable}
                             min={1}
                             max={d.product_total_stock}

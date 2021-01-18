@@ -42,10 +42,10 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-        <ReduxToastr
-            getState={(state) => state.toastr} // This is the default
+        {/* <ReduxToastr
+            getState={(state) => state.toastr} 
             {...alertOptions}
-          />
+          /> */}
           <ScrollToTop>
             <Fragment>
               {!loaded

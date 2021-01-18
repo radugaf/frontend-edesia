@@ -186,7 +186,7 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           scope="row"
                           padding="none"
                         >
-                          {d.product_item_id}
+                          {d.product_title}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.original_price}
@@ -195,9 +195,6 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           {d.quantity_by_restaurant}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {/* <input
-                            onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                          /> */}
                           <TextField
                               id="standard-basic"
                               label="Cantitate disponibila"
@@ -206,6 +203,12 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.original_price}
+                        </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          9%
+                        </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          total
                         </TableCell>
                       </TableRow>
                     );

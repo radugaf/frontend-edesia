@@ -20,7 +20,7 @@ const BoxedCollapseFullWidth = ({ inquires, GetInquires }) => {
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Cereri de Oferta de la:</h5>
+            <h3 className="bold-text">🔍 Cereri de Oferta de la:</h3>
           </div>
 
           {Object.keys(inquires) &&
