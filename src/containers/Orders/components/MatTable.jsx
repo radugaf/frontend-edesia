@@ -11,22 +11,9 @@ import TablePagination from "@material-ui/core/TablePagination";
 import MatTableHead from "./MatTableHead";
 import MatTableToolbar from "./MatTableToolbar";
 
-import { GetInquires } from "../../../redux/actions/products";
+import { GetSupplierOrder } from "../../../redux/actions/products";
 import { connect } from "react-redux";
 
-let counter = 0;
-
-const createData = (name, calories, fat, carbs, protein) => {
-  counter += 1;
-  return {
-    id: counter,
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-};
 
 const getSorting = (order, orderBy) => {
   if (order === "desc") {
@@ -51,7 +38,7 @@ const getSorting = (order, orderBy) => {
   };
 };
 
-const MatTable = ({ inquires, GetInquires, data }) => {
+const MatTable = ({ inquires, GetSupplierOrder, data }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
   const [selected, setSelected] = useState(new Map([]));
@@ -70,7 +57,7 @@ const MatTable = ({ inquires, GetInquires, data }) => {
   };
 
   useEffect(() => {
-    GetInquires();
+    GetSupplierOrder();
   }, []);
 
   const onChangeValueUpdate = (e, currentinq, index) => {
@@ -117,15 +104,6 @@ const MatTable = ({ inquires, GetInquires, data }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(Number(event.target.value));
   };
-
-  // const handleDeleteSelected = () => {
-  //   let copyData = [...data];
-  //   for (let i = 0; i < [...selected].filter(el => el[1]).length; i += 1) {
-  //     copyData = copyData.filter(obj => obj.id !== selected[i]);
-  //   }
-  //   setData(copyData);
-  //   setSelected(new Map([]));
-  // };
 
   const isSelected = (id) => !!selected.get(id);
   const emptyRows =
@@ -183,26 +161,35 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           />
                         </TableCell>
                         <TableCell
+                            className="material-table__cell material-table__cell-right"
+                            component="th"
+                            scope="row"
+                            padding="none"
+                          >
+                            <div className="circle_square">
+                              <img src={`${URL}${d.product_image_url}`}></img>
+                            </div>
+                          </TableCell>
+                        <TableCell
                           className="material-table__cell material-table__cell-right"
                           component="th"
                           scope="row"
                           padding="none"
                         >
-                          {d.product_item_id}
+                          {d.product_title}
+                        </TableCell>
+                        
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          {d.product_price}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.calories}
+                        {d.product_quantity}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.fat}
+                          {d.quantity_type}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          <input
-                            onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                          />
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {d.original_price}
+                          {d.total}
                         </TableCell>
                       </TableRow>
                     );
@@ -246,7 +233,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  GetInquires,
+  GetSupplierOrder,
   // DeclineInquiry,
   // UpdateInquiry,
 })(MatTable);

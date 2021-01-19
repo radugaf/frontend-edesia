@@ -49,7 +49,7 @@ const MatTableToolbar = ({
           {numSelected > 0 ? (
             <Button onClick={onUpdate} className="icon" color="primary">
               <p>
-                Raspunde
+                🔍 Raspunde
               </p>
             </Button>
           ) : (

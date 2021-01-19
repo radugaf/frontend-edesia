@@ -5,36 +5,23 @@ import MatTableFilterButton from "./MatTableFilterButton";
 import { Button } from "reactstrap";
 
 import { connect } from "react-redux";
-import { GetInquires, UpdateInquiry } from "../../../redux/actions/products";
+import { GetSupplierOrder, MarkAsShipped } from "../../../redux/actions/products";
 
 const MatTableToolbar = ({
-  UpdateInquiry,
-  GetInquires,
-  checkedData,
+  MarkAsShipped,
+  GetSupplierOrder,
   selectedData,
   numSelected,
-  handleDeleteSelected,
   onRequestSort,
 }) => {
-  const onUpdate = (e, type) => {
-    const newSelected = new Map(selectedData);
-    checkedData &&
-      checkedData.forEach((check) => {
-        console.log({ check });
-        const qty = newSelected.get(check[0]);
-        console.log({ qty });
-        UpdateInquiry({
-          product_id: qty.product_item_id,
-          inquiry_id: qty.enquiry_id,
-          price: qty.original_price,
-          quantity:
-            type === "accept" ? qty.quantity_by_restaurant : qty.updateQty,
-        });
-      });
-    GetInquires();
-    // toastr.success("Accept Inquire", "Inquire Accept Successfully");
+
+  const acceptOrder = async (e) => {
+    e.preventDefault();
+    await MarkAsShipped({ product_id: selectedData });
+    GetSupplierOrder();
+    // window.location.href = "/pages/orders";
   };
-  console.log({ checkedData });
+
   return (
     <div className="material-table__toolbar-wrap">
       <Toolbar className="material-table__toolbar">
@@ -47,7 +34,7 @@ const MatTableToolbar = ({
         </div>
         <div>
           {numSelected > 0 ? (
-            <Button onClick={onUpdate} className="icon" color="warning">
+            <Button onClick={acceptOrder} className="icon" color="warning">
               <p>📤 Licreaza</p>
             </Button>
           ) : (
@@ -67,13 +54,12 @@ MatTableToolbar.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    inquires: state.products.inquiredDetails,
+    orders: state.products.inquiredDetails,
     user: state.products.user,
   };
 };
 
 export default connect(mapStateToProps, {
-  GetInquires,
-  // DeclineInquiry,
-  UpdateInquiry,
+  GetSupplierOrder,
+  MarkAsShipped,
 })(MatTableToolbar);

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Toolbar from "@material-ui/core/Toolbar";
 import MatTableFilterButton from "./MatTableFilterButton";
 import { connect } from "react-redux";
-import { toastr } from "react-redux-toastr";
 import {Button} from 'reactstrap';
 import {
   GetRestaurantOrder,
@@ -18,14 +17,11 @@ const MatTableToolbar = ({
   numSelected,
   onRequestSort,
 }) => {
+
   const acceptOrder = async (e) => {
     e.preventDefault();
     await MarkAsDelivery({ product_id: selectedData });
     GetRestaurantOrder();
-    toastr.success(
-      "Order Mark Ad Delivered",
-      "Order Mark As Delivery successfully"
-    );
     window.location.href = "/pages/order-history";
   };
 

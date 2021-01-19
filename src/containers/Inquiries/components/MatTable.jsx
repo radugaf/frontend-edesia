@@ -15,20 +15,6 @@ import MatTableToolbar from "./MatTableToolbar";
 import { GetInquires } from "../../../redux/actions/products";
 import { connect } from "react-redux";
 
-let counter = 0;
-
-const createData = (name, calories, fat, carbs, protein) => {
-  counter += 1;
-  return {
-    id: counter,
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-};
-
 const getSorting = (order, orderBy) => {
   if (order === "desc") {
     return (a, b) => {
@@ -118,15 +104,6 @@ const MatTable = ({ inquires, GetInquires, data }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(Number(event.target.value));
   };
-
-  // const handleDeleteSelected = () => {
-  //   let copyData = [...data];
-  //   for (let i = 0; i < [...selected].filter(el => el[1]).length; i += 1) {
-  //     copyData = copyData.filter(obj => obj.id !== selected[i]);
-  //   }
-  //   setData(copyData);
-  //   setSelected(new Map([]));
-  // };
 
   const isSelected = (id) => !!selected.get(id);
   const emptyRows =

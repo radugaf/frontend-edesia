@@ -10,7 +10,10 @@ import { RTLProps } from '../../../shared/prop-types/ReducerProps';
 
 const rows = [
   {
-    id: 'name', disablePadding: true, label: 'Product',
+    id: 'image', disablePadding: true, label: 'IMG',
+  },
+  {
+    id: 'name', disablePadding: true, label: 'Produs',
   },
   {
     id: 'calories', disablePadding: false, label: 'Price',
@@ -19,7 +22,10 @@ const rows = [
     id: 'fat', disablePadding: false, label: 'QTY Input',
   },
   {
-    id: 'carbs', disablePadding: false, label: 'Total',
+    id: 'um', disablePadding: false, label: 'U.M.',
+  },
+  {
+    id: 'total', disablePadding: false, label: 'Total',
   },
  
 ];

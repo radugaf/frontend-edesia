@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { Card, CardBody, Col } from "reactstrap";
 import Collapse from "../../../shared/components/Collapse";
 import MatTable from "./MatTable";
@@ -6,13 +5,13 @@ import MatTable from "./MatTable";
 // Edesia
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { GetInquires } from "../../../redux/actions/products";
+import { GetSupplierOrder } from "../../../redux/actions/products";
 
-const BoxedCollapseFullWidth = ({ inquires, GetInquires }) => {
-  const { t } = useTranslation("common");
-  console.log({ inquires });
+const BoxedCollapseFullWidth = ({ orders, GetSupplierOrder }) => {
+
+  console.log({ orders });
   useEffect(() => {
-    GetInquires();
+    GetSupplierOrder();
   }, []);
 
   return (
@@ -23,10 +22,10 @@ const BoxedCollapseFullWidth = ({ inquires, GetInquires }) => {
             <h3 className="bold-text">📤 Comenzi</h3>
           </div>
 
-          {Object.keys(inquires) &&
-            Object.keys(inquires).map((key) => (
+          {Object.keys(orders) &&
+            Object.keys(orders).map((key) => (
               <Collapse title={key} className="with-shadow">
-                <MatTable data={inquires[key]} />
+                <MatTable data={orders[key]} />
               </Collapse>
             ))}
         </CardBody>
@@ -36,15 +35,13 @@ const BoxedCollapseFullWidth = ({ inquires, GetInquires }) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log({state})
-   return {
-     inquires: state.products.inquiredDetails,
-     user: state.products.user,
-   };
- };
- 
- export default connect(mapStateToProps, {
-   GetInquires,
-   // DeclineInquiry,
-   // UpdateInquiry,
- })(BoxedCollapseFullWidth);
+  console.log({ state });
+  return {
+    orders: state.products.supplierOrdersDetails,
+    user: state.products.user,
+  };
+};
+
+export default connect(mapStateToProps, {
+  GetSupplierOrder,
+})(BoxedCollapseFullWidth);
