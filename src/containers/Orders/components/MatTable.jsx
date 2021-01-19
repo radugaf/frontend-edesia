@@ -117,8 +117,9 @@ const MatTable = ({ inquires, GetSupplierOrder, data }) => {
             <h3 className="bold-text">Livreaza Produsele</h3>
           </div>
           <MatTableToolbar
-            selectedData={currentQty}
-            checkedData={[...selected].filter((el) => el[1])}
+            selectedData={[...selected]
+              .filter((el) => el[1])
+              .map((el) => el[0])}
             numSelected={[...selected].filter((el) => el[1]).length}
             handleDeleteSelected={(e) => console.log(e)}
             onRequestSort={handleRequestSort}

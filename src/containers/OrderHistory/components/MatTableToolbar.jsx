@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Toolbar from "@material-ui/core/Toolbar";
 import MatTableFilterButton from "./MatTableFilterButton";
 import { connect } from "react-redux";
-import {Button} from 'reactstrap';
+import { Button } from "reactstrap";
 import {
   GetRestaurantOrder,
   MarkAsDelivery,
@@ -17,12 +17,11 @@ const MatTableToolbar = ({
   numSelected,
   onRequestSort,
 }) => {
-
   const acceptOrder = async (e) => {
     e.preventDefault();
     await MarkAsDelivery({ product_id: selectedData });
     GetRestaurantOrder();
-    window.location.href = "/pages/order-history";
+    // window.location.href = "/pages/order-history";
   };
 
   return (
@@ -38,9 +37,7 @@ const MatTableToolbar = ({
         <div>
           {numSelected > 0 ? (
             <Button onClick={acceptOrder} className="icon" color="success">
-              <p>
-               Livrat
-              </p>
+              <p>Livrat</p>
             </Button>
           ) : (
             <MatTableFilterButton onRequestSort={onRequestSort} />
