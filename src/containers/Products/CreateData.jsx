@@ -55,6 +55,7 @@ const CreateTableData = () => {
         accessor: "button",
         disableGlobalFilter: true,
         disableSortBy: true,
+        width: 160,
       },
     ],
     []

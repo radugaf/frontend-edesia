@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
-import {
-  Button, ButtonToolbar, Card, CardBody, Col,
-} from 'reactstrap';
+import {Button} from 'reactstrap';
 import MatTableFilterButton from './MatTableFilterButton';
 import ThumbUpOutlineIcon from 'mdi-react/ThumbUpOutlineIcon';
 

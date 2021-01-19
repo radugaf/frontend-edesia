@@ -125,7 +125,7 @@ const DataReactTable = ({
     withDragAndDrop,
     withPagination,
     withSearchEngine,
-    manualPageSize: [10, 20, 30, 40],
+    manualPageSize: [20, 20, 30, 40],
     placeholder: 'Cauta Produs ...'
   };
 

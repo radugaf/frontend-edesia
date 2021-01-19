@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, Col } from "reactstrap";
 import { connect } from "react-redux";
 import { toastr } from "react-redux-toastr";
@@ -11,16 +11,24 @@ import TablePagination from "@material-ui/core/TablePagination";
 
 import MatTableHead from "./MatTableHead";
 import MatTableToolbar from "./MatTableToolbar";
-import {  
+import {
   GetRestaurantOrder,
   MarkAsDelivery,
   MarkAsShipped,
- } from "../../../redux/actions/products";
+} from "../../../redux/actions/products";
 import { URL } from "../../../requests";
 
 let counter = 0;
 
-const createData = (name, desired_qty, available_qty, price, um, cota_tva, supplier) => {
+const createData = (
+  name,
+  desired_qty,
+  available_qty,
+  price,
+  um,
+  cota_tva,
+  supplier
+) => {
   counter += 1;
   return {
     id: counter,
@@ -31,8 +39,6 @@ const createData = (name, desired_qty, available_qty, price, um, cota_tva, suppl
     um,
     cota_tva,
     supplier,
-
-    
   };
 };
 
@@ -68,7 +74,7 @@ const MatTable = ({
   user,
   GetInquires,
   inquires,
-  data
+  data,
 }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
@@ -83,14 +89,13 @@ const MatTable = ({
   //   createData("Gingerbread", "Kaufland", 16.0, "kg", "19%", 40, 1350),
   //   createData("Honeycomb", "Metro", 3.2, "g", "19%", 75, 1350),
   //   createData("Ice cream sandwich", "Metro", 37, "L", "9%", 89, 1350),
-  //   createData("Jelly Bean", "Lidl", 10.0, "ml", "19%", 100, 1350), 
+  //   createData("Jelly Bean", "Lidl", 10.0, "ml", "19%", 100, 1350),
   //   createData("KitKat", "Metro", 26.0, "kg", "19%", 29, 1350),
   //   createData("Lollipop", "Kaufland", 0.2, "g", "9%", 58, 1350),
   //   createData("Marshmallow", 318, 0, "L", "19%", 10, 1350),
   //   createData("Nougat", "Metro", 19.0, "kg", "9%", 3, 1350),
   //   createData("Oreo", "Lidl", 18.0, "g", "9%", 560, 1350),
   // ]);
-
 
   const UpdateQty = async (e, product_item_id, price) => {
     console.log({ value: e.target.value });
@@ -165,10 +170,12 @@ const MatTable = ({
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Wishlist</h5>
+            <h3 className="bold-text">Selecteaza produsele livrate</h3>
           </div>
           <MatTableToolbar
-            selectedData={[...selected].filter((el) => el[1]).map((el)=>el[0])}
+            selectedData={[...selected]
+              .filter((el) => el[1])
+              .map((el) => el[0])}
             numSelected={[...selected].filter((el) => el[1]).length}
             handleDeleteSelected={handleDeleteSelected}
             onRequestSort={handleRequestSort}
@@ -193,7 +200,9 @@ const MatTable = ({
                       <TableRow
                         className="material-table__row"
                         role="checkbox"
-                        onClick={(event) => handleClick(event, d.product_item_id)}
+                        onClick={(event) =>
+                          handleClick(event, d.product_item_id)
+                        }
                         aria-checked={select}
                         tabIndex={-1}
                         key={d.product_item_id}
@@ -214,15 +223,31 @@ const MatTable = ({
                           scope="row"
                           padding="none"
                         >
+                          <div className="circle_square">
+                            <img src={`${URL}${d.product_image_url}`}></img>
+                          </div>
+                        </TableCell>
+                        <TableCell
+                          className="material-table__cell material-table__cell-right"
+                          component="th"
+                          scope="row"
+                          padding="none"
+                        >
                           {d.product_title}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                        {d.product_price}
+                          {d.product_price}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.product_quantity}
                         </TableCell>
-                        
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          KG
+                        </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          9%
+                        </TableCell>
+
                         <TableCell className="material-table__cell material-table__cell-right">
                           QTY Inpput * Price
                         </TableCell>
@@ -259,7 +284,6 @@ const MatTable = ({
     </Col>
   );
 };
-
 
 const mapStateToProps = (state) => {
   return {

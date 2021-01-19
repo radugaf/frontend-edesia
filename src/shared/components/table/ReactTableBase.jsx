@@ -39,7 +39,7 @@ const ReactTableBase = ({
     manualPagination: !withPagination,
     initialState: {
       pageIndex: 0,
-      pageSize: manualPageSize ? manualPageSize[0] : 10,
+      pageSize: manualPageSize ? manualPageSize[0] : 20,
       globalFilter: withSearchEngine && filterValue ? filterValue : '',
     },
   };
