@@ -136,6 +136,9 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
+          <div className="card__title">
+            <h3 className="bold-text">Raspunde la cererile de oferta</h3>
+          </div>
           <MatTableToolbar
             selectedData={currentQty}
             checkedData={[...selected].filter((el) => el[1])}
@@ -196,16 +199,20 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           <TextField
-                              id="standard-basic"
-                              label="Cantitate disponibila"
-                              onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                            />
-                        </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          {d.original_price}
+                            id="standard-basic"
+                            label="Cantitate disponibila"
+                            onBlur={(e) => onChangeValueUpdate(e, data, index)}
+                          />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           9%
+                        </TableCell>
+                        <TableCell className="material-table__cell material-table__cell-right">
+                          <TextField
+                            id="standard-basic"
+                            label="%"
+                            onBlur={(e) => onChangeValueUpdate(e, data, index)}
+                          />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           total

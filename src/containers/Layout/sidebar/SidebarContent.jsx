@@ -58,7 +58,7 @@ class SidebarContent extends Component {
                   onClick={this.hideSidebar}
                 />
                 <SidebarLink
-                  title="Comenzi"
+                  title="📤 Comenzi"
                   route="/pages/orders"
                   onClick={this.hideSidebar}
                 />

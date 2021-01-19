@@ -135,6 +135,9 @@ const MatTable = ({ inquires, GetInquires, data }) => {
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
+          <div className="card__title">
+            <h3 className="bold-text">Livreaza Produsele</h3>
+          </div>
           <MatTableToolbar
             selectedData={currentQty}
             checkedData={[...selected].filter((el) => el[1])}
