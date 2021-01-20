@@ -17,7 +17,7 @@ const CreateTableData = () => {
         width: 65,
       },
       {
-        Header: "Number",
+        Header: "Nr. Factura",
         accessor: "invoice_number",
       },
       {
@@ -28,6 +28,14 @@ const CreateTableData = () => {
         Header: "Restaurant",
         accessor: "restaurant",
       },
+      // {
+      //   Header: "Produsele au fost livrate",
+      //   accessor: "is_shipped_document",
+      // },
+      // {
+      //   Header: "Produsele au fost receptionate",
+      //   accessor: "is_delivered_document",
+      // },
     ],
     []
   );

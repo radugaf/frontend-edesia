@@ -23,7 +23,7 @@ class SidebarContent extends Component {
       <div className="sidebar__content">
         <ul className="sidebar__block">
           <SidebarLink
-            icon='pie-chart'
+            icon="pie-chart"
             title="Dashboard"
             route="/pages/dashboard"
             onClick={this.hideSidebar}
@@ -32,13 +32,13 @@ class SidebarContent extends Component {
 
         <ul className="sidebar__block">
           <SidebarLink
-          icon='home'
+            icon="home"
             title="Catalog Produse"
             route="/pages/products"
             onClick={this.hideSidebar}
           />
           <SidebarCategory title="Documente" icon="paperclip">
-          <SidebarLink
+            <SidebarLink
               title="Procese Verbale"
               route="/pages/proces-verbal"
               onClick={this.hideSidebar}
@@ -53,12 +53,14 @@ class SidebarContent extends Component {
             (userType.is_company_owner || userType.is_company_staff) && (
               <>
                 <SidebarLink
+                  icon='list'
                   title="Cereri de Oferta"
                   route="/pages/inquiries"
                   onClick={this.hideSidebar}
                 />
                 <SidebarLink
-                  title="📤 Comenzi"
+                  icon='list'
+                  title="Comenzi"
                   route="/pages/orders"
                   onClick={this.hideSidebar}
                 />
@@ -68,19 +70,19 @@ class SidebarContent extends Component {
             (userType.is_restaurant_owner || userType.is_restaurant_staff) && (
               <>
                 <SidebarLink
-                icon='cart'
+                  icon="cart"
                   title="Cosul meu"
                   route="/pages/cart"
                   onClick={this.hideSidebar}
                 />
                 <SidebarLink
-                  icon='list'
+                  icon="list"
                   title="Wishlist (wokring title)"
                   route="/pages/wishlist"
                   onClick={this.hideSidebar}
                 />
                 <SidebarLink
-                icon='checkmark-circle'
+                  icon="checkmark-circle"
                   title="Receptie Marfa"
                   route="/pages/order-history"
                   onClick={this.hideSidebar}

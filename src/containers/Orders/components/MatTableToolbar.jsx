@@ -34,7 +34,7 @@ const MatTableToolbar = ({
         <div>
           {numSelected > 0 ? (
             <Button onClick={acceptOrder} className="icon" color="warning">
-              <p>📤 Licreaza</p>
+              <p>📤 Livrat</p>
             </Button>
           ) : (
             <MatTableFilterButton onRequestSort={onRequestSort} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import {Button} from 'reactstrap';
 import { toastr } from "react-redux-toastr";
 import { connect } from "react-redux";
 import {AddInquiry, 
@@ -33,9 +33,7 @@ return(
       <div>
         {numSelected > 0 ? (
           
-        <Button onClick={onFormSubmit} variant="contained" color="primary">
-          Order Now
-        </Button>
+        <Button onClick={onFormSubmit} className="icon" color="primary"><p>Raspunde la Cerere</p></Button>
         
         
         ) : (

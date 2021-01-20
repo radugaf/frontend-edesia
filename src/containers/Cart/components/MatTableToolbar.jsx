@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
-import {Button} from 'reactstrap';
 import MatTableFilterButton from './MatTableFilterButton';
+import {Button} from 'reactstrap';
 import ThumbUpOutlineIcon from 'mdi-react/ThumbUpOutlineIcon';
 
 import { connect } from "react-redux";

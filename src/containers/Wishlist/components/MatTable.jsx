@@ -235,7 +235,7 @@ const MatTable = ({
                           {/* TODO:Supplier */}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.quantity_by_restaurant}
+                          {d.final_price}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.quantity_type}
