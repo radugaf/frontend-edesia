@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   redirect: false,
   productsDetails: [],
+  invoiceDetails: [],
   cartsDetails: {},
   inquiredDetails: {},
   supplierOrdersDetails: [],
@@ -18,10 +19,14 @@ export default function (state = initialState, action) {
       return { ...state, user: action.payload };
     case "PRODUCT_LOADING":
       return { ...state, isLoading: action.payload || true };
+    case "INVOICE_LOADING":
+      return { ...state, isLoading: action.payload || true };
     case "STOP_LOADING":
       return { ...state, isLoading: false };
     case "GET_PRODUCTS":
       return { ...state, productsDetails: action.payload };
+    case "GET_INVOICES":
+      return { ...state, invoiceDetails: action.payload };
     case "ADD_TO_CART":
       return { ...state, cartsDetails: action.payload };
     case "GET_INQUIRES":

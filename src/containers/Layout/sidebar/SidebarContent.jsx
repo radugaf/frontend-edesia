@@ -45,7 +45,7 @@ class SidebarContent extends Component {
             />
             <SidebarLink
               title="Facturi"
-              route="/pages/invoices "
+              route="/pages/invoices"
               onClick={this.hideSidebar}
             />
           </SidebarCategory>

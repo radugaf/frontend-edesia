@@ -64,7 +64,7 @@ export const SupplierProductFetch = () => {
 };
 
 // Supplier
-export const InvoiceFetch = () => {
+export const SupplierInvoiceFetch = () => {
   return async (dispatch, getState) => {
     // Loading
     dispatch({
@@ -75,7 +75,7 @@ export const InvoiceFetch = () => {
 
     try {
       const invoiceData = await axios.get(
-        `${BACKEND_URL}${requests.SUPPLIER_PRODUCT_LIST}`,
+        `${BACKEND_URL}${requests.SUPPLIER_INVOICES}`,
         tokenConfig(getState)
       );
       console.log({ invoiceData });

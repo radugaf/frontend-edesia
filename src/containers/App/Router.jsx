@@ -1,16 +1,17 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Layout from '../Layout/index';
-import MainWrapper from './MainWrapper';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Layout from "../Layout/index";
+import MainWrapper from "./MainWrapper";
 
-import Login from '../LogIn/index';
-import Products from '../Products/index';
-import Inquiries from '../Inquiries/index';
-import Cart from '../Cart/index'
-import Dashboard from '../Dashboard/index'
-import Wishlist from '../Wishlist/index'
-import Orders from '../Orders/index'
-import OrderHistory from '../OrderHistory/index'
+import Login from "../LogIn/index";
+import Products from "../Products/index";
+import Inquiries from "../Inquiries/index";
+import Cart from "../Cart/index";
+import Dashboard from "../Dashboard/index";
+import Wishlist from "../Wishlist/index";
+import Orders from "../Orders/index";
+import OrderHistory from "../OrderHistory/index";
+import Invoices from "../Invoices/index";
 
 const Pages = () => (
   <Switch>
@@ -21,6 +22,7 @@ const Pages = () => (
     <Route path="/pages/dashboard" component={Dashboard} />
     <Route path="/pages/orders" component={Orders} />
     <Route path="/pages/order-history" component={OrderHistory} />
+    <Route path="/pages/invoices" component={Invoices} />
   </Switch>
 );
 

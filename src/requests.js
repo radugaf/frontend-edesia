@@ -25,7 +25,10 @@ export default {
 
   MARK_AS_DELIVERY_SUPPLIER_ORDER: "mark-orders-as-delivered/",
   GET_SUPPLIER_ORDERS: "supplier-pending-product-list/",
-  RESURANT_SHIPPED_PEODUCT_LIST:"restaurant-shipped-product-list/"
+  RESURANT_SHIPPED_PEODUCT_LIST:"restaurant-shipped-product-list/",
+  
+  // Invoices
+  SUPPLIER_INVOICES: "invoice-list/"
 };
 
 export const TOKEN =
