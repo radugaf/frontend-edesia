@@ -10,6 +10,9 @@ import { RTLProps } from '../../../shared/prop-types/ReducerProps';
 
 const rows = [
   {
+    id: 'img', disablePadding: true, label: 'IMG',
+  },
+  {
     id: 'name', disablePadding: true, label: 'Produs',
   },
   {

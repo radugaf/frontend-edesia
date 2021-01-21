@@ -161,6 +161,16 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           />
                         </TableCell>
                         <TableCell
+                            className="material-table__cell material-table__cell-right"
+                            component="th"
+                            scope="row"
+                            padding="none"
+                          >
+                            <div className="circle_square">
+                              <img src={`${URL}${d.product_image_url}`}></img>
+                            </div>
+                          </TableCell>
+                        <TableCell
                           className="material-table__cell material-table__cell-right"
                           component="th"
                           scope="row"
@@ -177,9 +187,9 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                         <TableCell className="material-table__cell material-table__cell-right">
                           <TextField
                             id="standard-basic"
-                            label="Cantitate disponibila"
+                            label={d.quantity_by_restaurant}
                             onBlur={(e) => onChangeValueUpdate(e, data, index)}
-                            value={d.quantity_by_restaurant}
+                            
                           />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
@@ -193,7 +203,7 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                           />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          total
+                          {d.total}
                         </TableCell>
                       </TableRow>
                     );

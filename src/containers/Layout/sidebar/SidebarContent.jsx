@@ -59,7 +59,7 @@ class SidebarContent extends Component {
                   onClick={this.hideSidebar}
                 />
                 <SidebarLink
-                  icon='list'
+                  icon='chevron-right-circle'
                   title="Comenzi"
                   route="/pages/orders"
                   onClick={this.hideSidebar}
