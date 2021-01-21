@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
-
+import { Button } from "reactstrap";
+import { Link } from 'react-router-dom';
 import { Card, CardBody, Col } from "reactstrap";
 import ReactTableBase from "../../../shared/components/table/ReactTableBase";
 import {
@@ -85,7 +86,9 @@ const DataReactTable = ({ SupplierInvoiceFetch, invoices, reactTableData }) => {
   const newInvoices =
     invoices &&
     invoices.map((invoice) => {
-      invoice["document_link"] = <a src={`${URL}${invoice.document_link}`}></a>;
+      console.log({invoice})
+
+      invoice["documents_link"] =<Button onClick={()=>window.open(`${URL}${invoice.document_link}`,'_blank')}>Print</Button>
       return invoice;
     });
 

@@ -40,11 +40,6 @@ class SidebarContent extends Component {
           <SidebarCategory title="Documente" icon="paperclip">
             <SidebarLink
               title="Procese Verbale"
-              route="/pages/proces-verbal"
-              onClick={this.hideSidebar}
-            />
-            <SidebarLink
-              title="Facturi"
               route="/pages/invoices"
               onClick={this.hideSidebar}
             />
@@ -77,7 +72,7 @@ class SidebarContent extends Component {
                 />
                 <SidebarLink
                   icon="list"
-                  title="Wishlist (wokring title)"
+                  title="Cere Oferta"
                   route="/pages/wishlist"
                   onClick={this.hideSidebar}
                 />

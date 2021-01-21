@@ -187,7 +187,7 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                         <TableCell className="material-table__cell material-table__cell-right">
                           <TextField
                             id="standard-basic"
-                            label={d.quantity_by_restaurant}
+                            label="Cantiate disponibila"
                             onBlur={(e) => onChangeValueUpdate(e, data, index)}
                             
                           />

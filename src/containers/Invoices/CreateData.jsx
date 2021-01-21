@@ -11,7 +11,7 @@ const CreateTableData = () => {
       },
       {
         Header: "Invoice",
-        accessor: "document_link",
+        accessor: "documents_link",
         disableGlobalFilter: true,
         disableSortBy: true,
         width: 65,

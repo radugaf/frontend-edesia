@@ -13,7 +13,7 @@ import { GetInquires,
   PlaceOrder, } from "../../../redux/actions/products";
 
 
-const MatTableToolbar = ({GetAddToCart,PlaceOrder, numSelected, handleDeleteSelected, onRequestSort,selectedData }) => {
+const MatTableToolbar = ({GetAddToCart,PlaceOrder, numSelected, onRequestSort,selectedData }) => {
   
   const AddToOrder = (e) => {
     e.preventDefault();

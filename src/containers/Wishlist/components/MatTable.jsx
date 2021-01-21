@@ -244,7 +244,7 @@ const MatTable = ({
 
                           <TextField
                             id="standard-basic"
-                            label={d.product_quantity}
+                            label="Cantiate dorita"
                             disabled={!d.is_editable}
                             min={1}
                             max={d.product_total_stock}

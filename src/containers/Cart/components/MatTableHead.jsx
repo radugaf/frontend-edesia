@@ -30,9 +30,6 @@ const rows = [
   {
     id: 'product_quantity', disablePadding: false, label: 'Cantitate',
   },
-  // {
-  //   id: 'desired_qty', disablePadding: false, label: 'Cantitate',
-  // },
   {
     id: 'available_qty', disablePadding: false, label: 'Total',
   },
