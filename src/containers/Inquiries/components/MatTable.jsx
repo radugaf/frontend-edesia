@@ -179,6 +179,7 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                             id="standard-basic"
                             label="Cantitate disponibila"
                             onBlur={(e) => onChangeValueUpdate(e, data, index)}
+                            value={d.quantity_by_restaurant}
                           />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">

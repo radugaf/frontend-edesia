@@ -24,30 +24,6 @@ import { URL } from "../../../requests";
 
 let counter = 0;
 
-const createData = (
-  name,
-  desired_qty,
-  available_qty,
-  price,
-  um,
-  cota_tva,
-  supplier,
-  remaining_time
-) => {
-  counter += 1;
-  return {
-    id: counter,
-    name,
-    desired_qty,
-    available_qty,
-    price,
-    um,
-    cota_tva,
-    supplier,
-    remaining_time,
-  };
-};
-
 const getSorting = (order, orderBy) => {
   if (order === "desc") {
     return (a, b) => {
@@ -71,16 +47,7 @@ const getSorting = (order, orderBy) => {
   };
 };
 
-const MatTable = ({
-  carts,
-  GetAddToCart,
-  DeleteCart,
-  UpdateCart,
-  PlaceOrder,
-  user,
-  GetInquires,
-  inquires,
-}) => {
+const MatTable = ({ carts, GetAddToCart, UpdateCart }) => {
   const data1 = (carts && carts.instant_delivery_items) || [];
   const data2 =
     carts &&
@@ -95,25 +62,10 @@ const MatTable = ({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [currentQty, setCurrentQty] = React.useState(new Map([]));
-  // const [data, setData] = useState(cartsData);
   useEffect(() => {
     GetAddToCart();
   }, []);
 
-  // const onChangeValueUpdate = (e, currentinq, index) => {
-  //   const inquiry = currentinq[index];
-  //   console.log({ inquiry, index });
-  //   const updatedQty = +e.target.value;
-  //   const newcurrentQty = new Map(currentQty);
-  //   const value = newcurrentQty.get(inquiry.product_item_id);
-  //   let qty = updatedQty;
-  //   newcurrentQty.set(inquiry.product_item_id, {
-  //     ...inquiry,
-  //     updateQty: updatedQty,
-  //   });
-  //   console.log({ newcurrentQty });
-  //   setCurrentQty(newcurrentQty);
-  // };
   const UpdateQty = (e, product_item_id, price) => {
     console.log({ value: e.target.value });
     if (+e.target.value >= 1) {
@@ -182,12 +134,25 @@ const MatTable = ({
     rowsPerPage -
     Math.min(rowsPerPage, ((data && data.length) || 0) - page * rowsPerPage);
 
+  let QtySum = 0;
+  let PriceSum = 0;
+  const totalCal = (total, currentValue) => {
+    return (
+      +total +
+      +currentValue.final_price *
+        (+currentValue.quantity_by_restaurant || +currentValue.product_quantity)
+    );
+  };
+  const total = data.reduce(totalCal, 0);
+
   return (
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
           <div className="card__title">
-            <h3 className="bold-text">🛒 Cosul de cumparaturi</h3>
+            <h3 className="bold-text">
+              🛒 Cosul de cumparaturi este de {total}
+            </h3>
           </div>
           <MatTableToolbar
             selectedData={[...selected]
@@ -283,7 +248,7 @@ const MatTable = ({
                             />
                           </TableCell>
                           <TableCell className="material-table__cell material-table__cell-right">
-                            {d.final_price}
+                            {d.total}
                           </TableCell>
                           <TableCell className="material-table__cell material-table__cell-right">
                             {/* {d.remaining_time} */}

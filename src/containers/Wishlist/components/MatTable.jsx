@@ -71,12 +71,8 @@ const getSorting = (order, orderBy) => {
 const MatTable = ({
   carts,
   GetAddToCart,
-  DeleteCart,
   UpdateCart,
-  PlaceOrder,
-  user,
-  GetInquires,
-  inquires,
+
 }) => {
   let data = (carts && carts.not_instant_delivery_items) || [];
   data = data.filter(
