@@ -236,21 +236,17 @@ const MatTable = ({
                           {d.product_title}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          {d.product_price}
+                          {d.product_price} RON
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.product_quantity}
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          KG
+                          {d.quantity_type}
                         </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
+                        {/* <TableCell className="material-table__cell material-table__cell-right">
                           9%
-                        </TableCell>
-
-                        <TableCell className="material-table__cell material-table__cell-right">
-                          QTY Inpput * Price
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}

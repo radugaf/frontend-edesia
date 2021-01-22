@@ -5,9 +5,9 @@ import Panel from '../../../shared/components/Panel';
 
 const data = [
   {
-    id: 0, title: 'Today', now: '$ 298,92', plan: '$ 250 planned', label: '100%', value: 100, pink: false,
+    id: 0, title: 'Today', now: '128,92 RON', label: '100%', value: 100, pink: false,
   }, {
-    id: 1, title: 'This week', now: '$ 1423,01', plan: '$ 1500 planned', label: '75%', value: 75, pink: true,
+    id: 1, title: 'This week', now: '1423,01 RON', label: '75%', value: 75, pink: true,
   }, 
 ];
 
@@ -15,7 +15,7 @@ const SalesReport = () => {
   const { t } = useTranslation('common');
 
   return (
-    <Panel lg={6}  title={t('Analiza Cart')}>
+    <Panel lg={6}  title= '📖 Analiza Cart'>
       <div className="dashboard__sales-report">
         {data.map(item => (
           <div

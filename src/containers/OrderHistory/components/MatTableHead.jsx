@@ -24,12 +24,9 @@ const rows = [
   {
     id: 'carbs', disablePadding: false, label: 'U.M.',
   },
-  {
-    id: 'carbs', disablePadding: false, label: 'Cota TVA%',
-  },
-  {
-    id: 'carbs', disablePadding: false, label: 'Total de Plata',
-  },
+  // {
+  //   id: 'carbs', disablePadding: false, label: 'Cota TVA%',
+  // },
  
 ];
 

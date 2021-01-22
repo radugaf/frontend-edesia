@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
-import { Button } from "reactstrap";
+// import { Button } from "reactstrap";
 import { Link } from 'react-router-dom';
 import { Card, CardBody, Col } from "reactstrap";
 import ReactTableBase from "../../../shared/components/table/ReactTableBase";
@@ -88,7 +88,7 @@ const DataReactTable = ({ SupplierInvoiceFetch, invoices, reactTableData }) => {
     invoices.map((invoice) => {
       console.log({invoice})
 
-      invoice["documents_link"] =<Button onClick={()=>window.open(`${URL}${invoice.document_link}`,'_blank')}>Print</Button>
+      invoice["documents_link"] =<button className="btn btn-primary btn-sm" onClick={()=>window.open(`${URL}${invoice.document_link}`,'_blank')}>Print</button>
       return invoice;
     });
 
@@ -98,7 +98,7 @@ const DataReactTable = ({ SupplierInvoiceFetch, invoices, reactTableData }) => {
         <CardBody>
           <div className="react-table__wrapper">
             <div className="card__title">
-              <h3 className="bold-text">Facturi</h3>
+              <h3 className="bold-text">🧾 Facturi</h3>
             </div>
           </div>
 

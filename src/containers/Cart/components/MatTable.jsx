@@ -151,7 +151,7 @@ const MatTable = ({ carts, GetAddToCart, UpdateCart }) => {
         <CardBody>
           <div className="card__title">
             <h3 className="bold-text">
-              🛒 Cosul de cumparaturi este de {total}
+              🛒 Cosul de cumparaturi este de = {total} RON
             </h3>
           </div>
           <MatTableToolbar
@@ -219,11 +219,7 @@ const MatTable = ({ carts, GetAddToCart, UpdateCart }) => {
                             {d.product_title}
                           </TableCell>
                           <TableCell className="material-table__cell material-table__cell-right">
-                            {/* {d.product_quantity} */}
-                            {/* TODO:Supplier */}
-                          </TableCell>
-                          <TableCell className="material-table__cell material-table__cell-right">
-                            {d.final_price}
+                            {d.final_price} RON
                           </TableCell>
                           <TableCell className="material-table__cell material-table__cell-right">
                             {d.quantity_type}
@@ -248,7 +244,7 @@ const MatTable = ({ carts, GetAddToCart, UpdateCart }) => {
                             />
                           </TableCell>
                           <TableCell className="material-table__cell material-table__cell-right">
-                            {d.total}
+                            {d.total} RON
                           </TableCell>
                           <TableCell className="material-table__cell material-table__cell-right">
                             {/* {d.remaining_time} */}

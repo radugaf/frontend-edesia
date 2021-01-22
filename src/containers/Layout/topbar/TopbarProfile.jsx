@@ -42,7 +42,7 @@ class TopbarProfile extends Component {
       <div className="topbar__profile">
         <button type="button" className="topbar__avatar" onClick={this.toggle}>
           <img className="topbar__avatar-img" src={Ava} alt="avatar" />
-          <p className="topbar__avatar-name">Roman Johanson</p>
+          <p className="topbar__avatar-name">Vlad Iliescu</p>
           <DownIcon className="topbar__icon" />
         </button>
         {collapse && (
@@ -54,7 +54,7 @@ class TopbarProfile extends Component {
         )}
         <Collapse isOpen={collapse} className="topbar__menu-wrap">
           <div className="topbar__menu">
-            <button
+            {/* <button
               type="button"
               className="sidebar__link"
               onClick={changeToLight}
@@ -67,7 +67,7 @@ class TopbarProfile extends Component {
               onClick={changeToDark}
             >
               <p className="sidebar__link-title">Dark Theme</p>
-            </button>
+            </button> */}
             <div className="topbar__menu-divider" />
             {/* <TopbarMenuLink title="Logout" icon="exit" path="/" />
             <TopbarMenuLink title="Login" icon="exit" path="/log_in" /> */}

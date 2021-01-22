@@ -15,9 +15,9 @@ const rows = [
   {
     id: 'name', disablePadding: true, label: 'Produs',
   },
-  {
-    id: 'supplier', disablePadding: false, label: 'Furnizor',
-  },
+  // {
+  //   id: 'supplier', disablePadding: false, label: 'Furnizor',
+  // },
   {
     id: 'price', disablePadding: false, label: 'Pret',
   },

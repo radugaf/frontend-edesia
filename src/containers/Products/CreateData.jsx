@@ -25,11 +25,11 @@ const CreateTableData = () => {
         Header: "Furnizor",
         accessor: "supplier_company.name",
       },
-      {
-        Header: "Rating Furnizor",
-        accessor: "rating",
-        disableGlobalFilter: true,
-      },
+      // {
+      //   Header: "Rating Furnizor",
+      //   accessor: "rating",
+      //   disableGlobalFilter: true,
+      // },
       {
         Header: "Cantitate",
         accessor: "total_stock",
@@ -45,11 +45,11 @@ const CreateTableData = () => {
         accessor: "quantity_type",
         disableGlobalFilter: true,
       },
-      {
-        Header: "Cota TVA%",
-        accessor: "delivery_status",
-        disableGlobalFilter: true,
-      },
+      // {
+      //   Header: "Cota TVA%",
+      //   accessor: "delivery_status",
+      //   disableGlobalFilter: true,
+      // },
       {
         Header: "Button",
         accessor: "button",
