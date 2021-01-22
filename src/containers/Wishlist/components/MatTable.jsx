@@ -254,7 +254,7 @@ const MatTable = ({
                           />
                         </TableCell>
                         <TableCell className="material-table__cell material-table__cell-right">
-                          QTY Inpput * Price
+                          {d.total}
                         </TableCell>
                       </TableRow>
                     );
