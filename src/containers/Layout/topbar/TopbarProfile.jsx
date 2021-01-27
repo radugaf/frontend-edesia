@@ -35,6 +35,9 @@ class TopbarProfile extends Component {
     const { user } = this.props;
     const userType = user;
     console.log({ user });
+    const is_restaurant =user&&( user.is_restaurant_staff || user.is_restaurant_owner)
+    const is_supplier =user&&( user.is_company_staff || user.is_company_owner)
+    const Type = (is_restaurant && "Restaurant") || (is_supplier && "Supplier")
     const { changeToDark, changeToLight } = this.props;
     const { collapse } = this.state;
 
@@ -42,7 +45,7 @@ class TopbarProfile extends Component {
       <div className="topbar__profile">
         <button type="button" className="topbar__avatar" onClick={this.toggle}>
           <img className="topbar__avatar-img" src={Ava} alt="avatar" />
-          <p className="topbar__avatar-name">Vlad Iliescu</p>
+          <p className="topbar__avatar-name">{Type}</p>
           <DownIcon className="topbar__icon" />
         </button>
         {collapse && (

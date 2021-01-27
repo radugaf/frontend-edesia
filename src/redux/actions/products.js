@@ -600,7 +600,7 @@ export const Logout = () => {
     dispatch({
       type: "LOGOUT",
     });
-    window.location.href = "/login";
+    window.location.href = "/log_in";
   };
 };
 
@@ -629,7 +629,7 @@ export const errorHandle = (error, dispatch) => {
       type: "AUTH_ERROR",
       payload: { error: error.response.data },
     });
-    window.location.href = "/login";
+    window.location.href = "/log_in";
   } else if (
     error &&
     error.response &&
@@ -669,7 +669,7 @@ export const tokenConfig = () => {
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   } else {
-    window.location.href = "/login";
+    window.location.href = "/log_in";
   }
   return config;
 };
