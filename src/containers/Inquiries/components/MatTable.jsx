@@ -248,6 +248,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   GetInquires,
-  // DeclineInquiry,
-  // UpdateInquiry,
 })(MatTable);
