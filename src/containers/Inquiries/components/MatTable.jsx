@@ -195,13 +195,13 @@ const MatTable = ({ inquires, GetInquires, data }) => {
                         <TableCell className="material-table__cell material-table__cell-right">
                           9%
                         </TableCell>
-                        <TableCell className="material-table__cell material-table__cell-right">
+                        {/* <TableCell className="material-table__cell material-table__cell-right">
                           <TextField
                             id="standard-basic"
                             label="%"
                             onBlur={(e) => onChangeValueUpdate(e, data, index)}
                           />
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell className="material-table__cell material-table__cell-right">
                           {d.total}
                         </TableCell>
