@@ -12,10 +12,10 @@ const data02 = [{ value: 25, fill: '#ff4861' },
   { value: 75, fill: '#eeeeee' }];
 
 const social = [
-  { id: 0, social: 'Booking.com', progress: '87' },
-  { id: 1, social: 'Airbnb', progress: '65' },
-  { id: 2, social: 'Tripadvisor', progress: '92' },
-  { id: 3, social: 'Tripadvisor', progress: '81' },
+  { id: 0, social: 'Zahar Brun 500g', progress: '87' },
+  { id: 1, social: 'Zahar Alb 500g', progress: '65' },
+  { id: 2, social: 'Smantana 30% grasime 300g', progress: '92' },
+  { id: 3, social: 'Smantana fermentata 35% grasime 200g', progress: '81' },
 ];
 
 const SocialScore = ({ children, progress }) => (

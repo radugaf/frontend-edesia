@@ -5,7 +5,7 @@ import {
 
 const TopbarSearch = () => (
   <form className="topbar__search">
-    <Button size="sm"> 123345 - Call us </Button>
+    <Button size="sm"> 0742.100.540 - Call us </Button>
   </form>
 );
 
