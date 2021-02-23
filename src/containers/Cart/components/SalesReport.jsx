@@ -5,9 +5,11 @@ import Panel from '../../../shared/components/Panel';
 
 const data = [
   {
-    id: 0, title: 'Today', now: '128,92 RON', label: '100%', value: 100, pink: false,
+    id: 0, title: 'Nume Furnizor 1', now: 'Ok Pentru Comanda', value: 100, pink: false,
   }, {
-    id: 1, title: 'This week', now: '1423,01 RON', label: '75%', value: 75, pink: true,
+    id: 1, title: 'Nume Furnizor 2', now: 'Rest Comanda 1423,01 RON',  value: 75, pink: true,
+  }, {
+    id: 2, title: 'Nume Furnizor 3', now: 'Rest Comanda 843,01 RON', value: 37, pink: true,
   }, 
 ];
 
@@ -17,6 +19,8 @@ const SalesReport = () => {
   return (
     <Panel lg={6}  title= '📖 Analiza Cart'>
       <div className="dashboard__sales-report">
+        <h3>Total with VAT: 100 RON</h3><h5>Total without VAT: 100 RON</h5>
+        <br />
         {data.map(item => (
           <div
             key={item.id}

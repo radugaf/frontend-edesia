@@ -81,6 +81,21 @@ const MatTable = ({
   const [selected, setSelected] = useState(new Map([]));
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  // const [data, setData] = useState([
+  //   createData("Cupcake", "Kaufland", 3.7, "kg", "9%", 50, 1350),
+  //   createData("Donut", "Lidl", 25.0, "g", "9%", 60, 1350),
+  //   createData("Eclair", "Metro", 16.0, "L", "19%", 120, 1350),
+  //   createData("Frozen yoghurt", "Kaufland", 6.0, "ml", "9%", 35, 1350),
+  //   createData("Gingerbread", "Kaufland", 16.0, "kg", "19%", 40, 1350),
+  //   createData("Honeycomb", "Metro", 3.2, "g", "19%", 75, 1350),
+  //   createData("Ice cream sandwich", "Metro", 37, "L", "9%", 89, 1350),
+  //   createData("Jelly Bean", "Lidl", 10.0, "ml", "19%", 100, 1350),
+  //   createData("KitKat", "Metro", 26.0, "kg", "19%", 29, 1350),
+  //   createData("Lollipop", "Kaufland", 0.2, "g", "9%", 58, 1350),
+  //   createData("Marshmallow", 318, 0, "L", "19%", 10, 1350),
+  //   createData("Nougat", "Metro", 19.0, "kg", "9%", 3, 1350),
+  //   createData("Oreo", "Lidl", 18.0, "g", "9%", 560, 1350),
+  // ]);
 
   const UpdateQty = async (e, product_item_id, price) => {
     console.log({ value: e.target.value });

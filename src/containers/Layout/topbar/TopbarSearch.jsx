@@ -1,12 +1,12 @@
-import React from 'react';
-import {
-  Button
-} from 'reactstrap';
+import React from "react";
+import { Button } from "reactstrap";
 
 const TopbarSearch = () => (
-  <form className="topbar__search">
-    <Button size="sm"> 0742.100.540 - Call us </Button>
-  </form>
+  <div className="topbar__search">
+    <a href="/pages/add-product">
+      <Button size="sm"> Add Product </Button>
+    </a>
+  </div>
 );
 
 export default TopbarSearch;

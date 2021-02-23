@@ -60,7 +60,7 @@ const MatTable = ({ carts, GetAddToCart, UpdateCart }) => {
   const [orderBy, setOrderBy] = useState("price");
   const [selected, setSelected] = useState(new Map([]));
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [currentQty, setCurrentQty] = React.useState(new Map([]));
   useEffect(() => {
     GetAddToCart();
@@ -271,7 +271,7 @@ const MatTable = ({ carts, GetAddToCart, UpdateCart }) => {
             nextIconButtonProps={{ "aria-label": "Next Page" }}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
-            rowsPerPageOptions={[20, 30, 50]}
+            rowsPerPageOptions={[5, 10, 15]}
             dir="ltr"
             SelectProps={{
               inputProps: { "aria-label": "rows per page" },

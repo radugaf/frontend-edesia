@@ -34,8 +34,7 @@ const MatTableToolbar = ({
         }
       });
     GetInquires();
-    window.location.href = "/pages/inquiries";
-
+    // toastr.success("Accept Inquire", "Inquire Accept Successfully");
   };
   console.log({ checkedData });
   return (

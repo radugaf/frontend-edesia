@@ -152,27 +152,7 @@ const newProducts = products && products.map((product)=>{
             <div className="card__title">
               <h3 className="bold-text">🍲 Catalog Produse</h3>
             </div>
-            {/* <ReactTableCustomizer
-              handleClickIsEditable={handleClickIsEditable}
-              handleClickIsResizable={handleClickIsResizable}
-              handleClickIsSortable={handleClickIsSortable}
-              handleClickWithDragAndDrop={handleClickWithDragAndDrop}
-              handleClickWithPagination={handleClickWithPagination}
-              handleClickWithSearchEngine={handleClickWithSearchEngine}
-              isEditable={isEditable}
-              isResizable={isResizable}
-              isSortable={isSortable}
-              isDisabledDragAndDrop={isDisabledDragAndDrop}
-              isDisabledEditable={isDisabledEditable}
-              isDisabledResizable={isDisabledResizable}
-              withDragAndDrop={withDragAndDrop}
-              withPagination={withPagination}
-              withSearchEngine={withSearchEngine}
-              fullCustomizer
-            /> */}
           </div>
-
-          
           <ReactTableBase
             key={withSearchEngine || isResizable || isEditable ? 'modified' : 'common'}
             columns={reactTableData.tableHeaderData}

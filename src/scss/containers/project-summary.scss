@@ -53,7 +53,7 @@
 }
 
 .project-summary__progress {
-  max-width: 460px;
+  max-width: 500px;
   width: 100%;
   margin: auto 0;
 
@@ -140,7 +140,7 @@
 }
 
 .project-summary__btn {
-  width: 100px;
+  width: 150px;
   @include directify($directions) {
     #{directed('margin-left')}: 5px;
   }

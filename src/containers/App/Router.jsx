@@ -12,11 +12,12 @@ import Wishlist from "../Wishlist/index";
 import Orders from "../Orders/index";
 import OrderHistory from "../OrderHistory/index";
 import Invoices from "../Invoices/index";
+import UserProfile from "../UserProfile";
+import OrderDetails from "../OrderDetails";
 import AddProduct from "../AddProduct/index";
-import Profile from "../Profile/index";
-import ProductPage from '../ProductPage'
+import EdesiaInvoices from "../EdesiaInvoices"
 
-const Pages = () => (
+const Pages = () => ( 
   <Switch>
     <Route path="/pages/products" component={Products} />
     <Route path="/pages/inquiries" component={Inquiries} />
@@ -26,9 +27,11 @@ const Pages = () => (
     <Route path="/pages/orders" component={Orders} />
     <Route path="/pages/order-history" component={OrderHistory} />
     <Route path="/pages/invoices" component={Invoices} />
+    <Route path="/pages/edesia-invoices" component={EdesiaInvoices} />
+    <Route path="/pages/user-profile" component={UserProfile} />
+    <Route path="/pages/order-details" component={OrderDetails} />
     <Route path="/pages/add-product" component={AddProduct} />
-    <Route path="/pages/user-profile" component={Profile} />
-    <Route path="/pages/product-detail" component={ProductPage} />
+    
   </Switch>
 );
 

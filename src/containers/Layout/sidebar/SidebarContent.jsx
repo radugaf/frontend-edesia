@@ -28,6 +28,12 @@ class SidebarContent extends Component {
             route="/pages/dashboard"
             onClick={this.hideSidebar}
           />
+          <SidebarLink
+            icon="pie-chart"
+            title="Order Details"
+            route="/pages/order-details"
+            onClick={this.hideSidebar}
+          />
         </ul>
 
         <ul className="sidebar__block">
@@ -37,22 +43,15 @@ class SidebarContent extends Component {
             route="/pages/products"
             onClick={this.hideSidebar}
           />
-          <SidebarLink
-            icon="home"
-            title="Detalii Produs"
-            route="/pages/product-detail"
-            onClick={this.hideSidebar}
-          />
-          <SidebarLink
-                  icon="cart"
-                  title="Profil"
-                  route="/pages/user-profile"
-                  onClick={this.hideSidebar}
-                />
           <SidebarCategory title="Documente" icon="paperclip">
             <SidebarLink
               title="Procese Verbale"
               route="/pages/invoices"
+              onClick={this.hideSidebar}
+            />
+            <SidebarLink
+              title="Achita Facturi"
+              route="/pages/edesia-invoices"
               onClick={this.hideSidebar}
             />
           </SidebarCategory>
@@ -92,12 +91,6 @@ class SidebarContent extends Component {
                   icon="checkmark-circle"
                   title="Receptie Marfa"
                   route="/pages/order-history"
-                  onClick={this.hideSidebar}
-                />
-                <SidebarLink
-                  icon="checkmark-circle"
-                  title="Adauga Produs"
-                  route="/pages/add-product"
                   onClick={this.hideSidebar}
                 />
               </>

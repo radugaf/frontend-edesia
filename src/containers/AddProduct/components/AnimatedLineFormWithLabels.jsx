@@ -1,16 +1,20 @@
 /* eslint-disable react/no-children-prop */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { Field, reduxForm } from 'redux-form';
-import {
-  Card, CardBody, Col, Button, ButtonToolbar,
-} from 'reactstrap';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import React from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { Field, reduxForm } from "redux-form";
+import { Card, CardBody, Col, Button, ButtonToolbar } from "reactstrap";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const renderTextField = ({
-  input, label, meta: { touched, error }, children, select, type, multiline,
+  input,
+  label,
+  meta: { touched, error },
+  children,
+  select,
+  type,
+  multiline,
 }) => (
   <TextField
     className="material-form__field"
@@ -45,13 +49,11 @@ renderTextField.defaultProps = {
   meta: null,
   select: false,
   children: [],
-  type: 'text',
+  type: "text",
   multiline: false,
 };
 
 const AnimatedLineFormWithLabels = ({ handleSubmit, reset }) => {
-
-
   return (
     <Col md={12} lg={12}>
       <Card>
@@ -85,13 +87,40 @@ const AnimatedLineFormWithLabels = ({ handleSubmit, reset }) => {
             </div>
             <div>
               <Field
+                name="url"
+                component={renderTextField}
+                label="Suma Comanda Minima"
+                type="url"
+              />
+            </div>
+            <div>
+              <Field
                 name="select"
                 component={renderTextField}
                 select
                 label="Select Option"
               >
-                <MenuItem className="material-form__option" value="one">Instant Delivery</MenuItem>
-                <MenuItem className="material-form__option" value="two">Not Instant Delivery</MenuItem>
+                <MenuItem className="material-form__option" value="one">
+                  Instant Delivery
+                </MenuItem>
+                <MenuItem className="material-form__option" value="two">
+                  Not Instant Delivery
+                </MenuItem>
+              </Field>
+            </div>
+            <div>
+              <Field
+                name="select"
+                component={renderTextField}
+                select
+                label="Select Category"
+              >
+                <MenuItem className="material-form__option" value="one">
+                  Vegetables
+                </MenuItem>
+                <MenuItem className="material-form__option" value="two">
+                  Meats
+                </MenuItem>
               </Field>
             </div>
             <div>
@@ -105,7 +134,9 @@ const AnimatedLineFormWithLabels = ({ handleSubmit, reset }) => {
               />
             </div>
             <ButtonToolbar className="form__button-toolbar">
-              <Button color="success" type="submit">Create</Button>
+              <Button color="success" type="submit">
+                Create
+              </Button>
               <Button type="button" onClick={reset}>
                 Cancel
               </Button>
@@ -123,5 +154,5 @@ AnimatedLineFormWithLabels.propTypes = {
 };
 
 export default reduxForm({
-  form: 'floating_labels_form', // a unique identifier for this form
+  form: "floating_labels_form", // a unique identifier for this form
 })(AnimatedLineFormWithLabels);
